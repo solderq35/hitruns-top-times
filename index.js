@@ -148,12 +148,16 @@ async function GenerateTable() {
   //console.log(apiUrl.length);
   let obj;
   let objarray = [];
+  let levelarray = [];
   let playerarray = [];
+  let videoarray = [];
   let timearray = [];
 
   let obj2;
   let objarray2 = [];
+  let levelarray2 = [];
   let playerarray2 = [];
+  let videoarray2 = [];
   let timearray2 = [];
 
   for (let i = 0; i < apiUrl.length; i++) {
@@ -164,17 +168,23 @@ async function GenerateTable() {
         //objarray = [];
         //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
+
+        levelarray.push(objarray[i].data.level.data.name);
         //timearray = []
         //  console.log(objarray[i].data.runs[0].run.times.primary_t);
+        //obj.data.runs[0].run.times.primary_t;
         timearray.push(objarray[i].data.runs[0].run.times.primary_t);
 
         //console.log(obj.data.players.data[0].names.international)
 
-        if (obj.data.players.data[0].rel == "user") {
-          playerarray.push(obj.data.players.data[0].names.international);
-        } else if (obj.data.players.data[0].rel == "guest") {
-          playerarray.push(obj.data.players.data[0].name);
+        if (objarray[i].data.players.data[0].rel == "user") {
+          playerarray.push(objarray[i].data.players.data[0].names.international);
+        } else if (objarray[i].data.players.data[0].rel == "guest") {
+          playerarray.push(objarray[i].data.players.data[0].name);
         }
+        
+        videoarray.push(objarray[i].data.runs[0].run.videos.links[0].uri.linkify());
+
 
         // console.log(objarray);
 
@@ -192,15 +202,19 @@ async function GenerateTable() {
         //objarray = [];
         //  for (let i = 0; i < apiUrl.length; i++) {
         objarray2.push(obj2);
+
+        levelarray2.push(objarray2[i].data.level.data.name);
         //timearray = []
         console.log(objarray2[i].data.runs[0].run.times.primary_t);
         timearray2.push(objarray2[i].data.runs[0].run.times.primary_t);
 
-        if (obj2.data.players.data[0].rel == "user") {
-          playerarray2.push(obj2.data.players.data[0].names.international);
-        } else if (obj2.data.players.data[0].rel == "guest") {
-          playerarray2.push(obj2.data.players.data[0].name);
+        if (objarray2[i].data.players.data[0].rel == "user") {
+          playerarray2.push(objarray2[i].data.players.data[0].names.international);
+        } else if (objarray2[i].data.players.data[0].rel == "guest") {
+          playerarray2.push(objarray2[i].data.players.data[0].name);
         }
+
+        videoarray2.push(objarray2[i].data.runs[0].run.videos.links[0].uri.linkify());
 
         // console.log(objarray);
 
@@ -210,7 +224,9 @@ async function GenerateTable() {
     });
   }
 
-  //console.log(objarray);
+  console.log(objarray);
+  console.log(videoarray);
+  console.log(levelarray);
   console.log(timearray);
   console.log(playerarray);
   let kk = 69;
@@ -308,7 +324,7 @@ async function GenerateTable() {
         //console.log(i)
 
         // console.log(j)
-        function makeTable(urlid, ratinglabel, playerver, timever, i) {
+        function makeTable(urlid, ratinglabel, levelver, playerver, timever, videover, i) {
           kk += 1;
           //console.log(j)
           //console.log(kk);
@@ -321,7 +337,7 @@ async function GenerateTable() {
           customers.push([ratinglabel, "", "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < timever.length; j++) {
-            customers.push([1, playerver[j], timever[j], "youtube"]);
+            customers.push([levelver[j], playerver[j], timever[j], videover[2]]);
           }
 
           // customers.push([2, "Mudassar Khan", timever[i], "youtube"]);
@@ -365,8 +381,8 @@ async function GenerateTable() {
           // fetchInfo();
         }
         console.log(i);
-        makeTable("dvTable", "SA", playerarray, timearray, i);
-        makeTable("dvTable2", "SA/SO", playerarray2, timearray2, i);
+        makeTable("dvTable", "SA", levelarray, playerarray, timearray, videoarray, i);
+        makeTable("dvTable2", "SA/SO", levelarray2, playerarray2, timearray2, videoarray2, i);
       });
     });
     //console.log(i);
