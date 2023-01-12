@@ -14,91 +14,17 @@
     <meta property="og:image" content="favicon.png" />
   </head>
   <body>
-    <h1>Hitruns Parser (Individual Levels)</h1>
-    <table class="toptable">
-      <tr class="toptable">
-        <th class="toptable" id="toprunlabel">Run Link Input</th>
-        <th class="toptable" id="topdifflabel">
-          Difficulty / Rating (CE) Input
-        </th>
-        <th class="toptable" id="toppatchlabel">Patch Invalidation Reason</th>
-      </tr>
-    </table>
-    <input onkeup="fetchInfo() type="text" id="runLink" value =
-    "https://www.speedrun.com/hitman_3/run/znqq2e8z"> <input onkeup="fetchInfo()
-    type="text" id="diffInput" value = "Pro"> <input onkeup="fetchInfo()
-    type="text" id="reasonInput" value = "Molly">
-    <pre id="log"></pre>
-
-    <button onclick="fetchInfo()">Click Me</button>
+    <h1>Hitman 3 Master IL Top Times</h1>
 
     <br />
     <br />
     <a href="fullgame.html">Full Game</a>
 
-    <p>
-      In case of possible formatting issues, when pasting into Google Sheets,
-      use Ctrl+Shift+V (paste without formatting)
-    </p>
-    <p>
-      <b>API Link</b>
-    </p>
-    <p id="apiUrlDiv"></p>
 
-    <table>
-      <tr>
-        <th>Player</th>
-        <th>Date</th>
-        <th>Category</th>
-        <th>Time</th>
-        <th>Reason</th>
-        <th>Video</th>
-      </tr>
-      <tr>
-        <td id="playerCell_0"></td>
-        <td id="dateCell_0"></td>
-        <td id="categoryCell_0"></td>
-        <td id="timeCell_0"></td>
-        <td id="reasonCell_0"></td>
-        <td id="videoCell_0"></td>
-      </tr>
-      <tr>
-        <td id="playerCell_1"></td>
-        <td id="dateCell_1"></td>
-        <td id="categoryCell_1"></td>
-        <td id="timeCell_1"></td>
-        <td id="reasonCell_1"></td>
-        <td id="videoCell_1"></td>
-      </tr>
-      <tr>
-        <td id="playerCell_2"></td>
-        <td id="dateCell_2"></td>
-        <td id="categoryCell_2"></td>
-        <td id="timeCell_2"></td>
-        <td id="reasonCell_2"></td>
-        <td id="videoCell_2"></td>
-      </tr>
-      <tr>
-        <td id="playerCell_3"></td>
-        <td id="dateCell_3"></td>
-        <td id="categoryCell_3"></td>
-        <td id="timeCell_3"></td>
-        <td id="reasonCell_3"></td>
-        <td id="videoCell_3"></td>
-      </tr>
-      <tr>
-        <td id="playerCell_4"></td>
-        <td id="dateCell_4"></td>
-        <td id="categoryCell_4"></td>
-        <td id="timeCell_4"></td>
-        <td id="reasonCell_4"></td>
-        <td id="videoCell_4"></td>
-      </tr>
-    </table>
+
+
     <p id = "total">test</p>
   </body>
-  <input type="button" value="Generate Table" onclick="GenerateTable()" />
-<hr />
 
 <div id="dvTable"></div>
 

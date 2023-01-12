@@ -19,27 +19,15 @@ if (!String.linkify) {
   };
 }
 
-
-function done() {
-  document.getElementById("log").textContent =
-    "Here's what I got! \n" + storedText;
-}
-
 // https://www.aspsnippets.com/Articles/Create-dynamic-Table-in-HTML-at-runtime-using-JavaScript.aspx
 
 async function GenerateTable() {
-  let runLinkInput = document.getElementById("runLink").value;
-  let runDiffInput = document.getElementById("diffInput").value;
-  let runReasonInput = document.getElementById("reasonInput").value;
-  let idslice = runLinkInput.slice(-8);
-  let playerEmbed = "?embed=players,category.variables,level";
-  let idPlusEmbeds = idslice.concat(playerEmbed);
-  let apiDomain = "https://www.speedrun.com/api/v1/runs/";
+
   //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
   //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
   let apiprefix = "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/";
   let apipostfix = "&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1";
-  let levelapiarray = ["y9mg6vx9/", "5wkexvpw/", "592rk13d/"];
+  let levelapiarray = ["owo5jvkd/", "xd1ymo5d/", "ewpo3vjd/", "y9mg6vx9/", "5wkexvpw/", "592rk13d/"];
   let categoryapiarray = ["7kj890zd", "jdronyld"];
   let difficultyapiarray = ["?var-p854xo3l=gq7jpmpq", "?var-p854xo3l=21g85z6l", "?var-r8r1dv7n=21dz5xpl", "?var-r8r1dv7n=5q86pwy1"]
   //let finalurlsa = apiprefix + levelapiarray[i + categoryapiarray[0]]
@@ -298,23 +286,8 @@ async function GenerateTable() {
         //console.log(initialTime);
         //console.log(obj.data.players.data[0].rel);
 
-        if (obj.data.players.data[0].rel == "user") {
-          playerName.innerHTML = obj.data.players.data[0].names.international;
-        } else if (obj.data.players.data[0].rel == "guest") {
-          playerName.innerHTML = obj.data.players.data[0].name;
-        }
 
-
-        timeName.innerHTML = finalTime;
-        dateName.innerHTML = obj.data.date;
         //videoName.innerHTML = obj.data.videos.links[0].uri.linkify();
-        reasonName.innerHTML = runReasonInput;
-        categoryName.innerHTML =
-          obj.data.level.data.name +
-          " " +
-          obj.data.category.data.name +
-          " " +
-          runDiffInput;
 
         // apiUrlName.innerHTML = apiUrl.linkify();
         // console.log(objarray[i].data.runs[0].run.times.primary_t);
@@ -419,7 +392,7 @@ async function GenerateTable() {
           //console.log(timearray[0])
           //console.log(timearray[1])
 
-          customers.push([ratinglabel, finaltotalTimever, "", ""]);
+          customers.push([ratinglabel, "Total Time: " + finaltotalTimever, "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < levelver.length; j++) {
             customers.push([
