@@ -133,8 +133,10 @@ function GenerateTable() {
     "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
     "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/5wkexvpw/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
   ];
-  let apiUrl2 =
-    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1";
+  let apiUrl2 = [
+    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
+    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/5wkexvpw/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
+  ];
   let playerName = document.getElementById("playerCell_0");
   let categoryName = document.getElementById("categoryCell_0");
   let timeName = document.getElementById("timeCell_0");
@@ -148,15 +150,20 @@ function GenerateTable() {
   let objarray = [];
   let timearray = [];
 
+  let obj2;
+  let objarray2 = [];
+  let timearray2 = [];
+
   for (let i = 0; i < apiUrl.length; i++) {
     fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
-        storedText = text;
+        //storedText = text;
         obj = JSON.parse(text);
         //objarray = [];
         //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
         //timearray = []
+      //  console.log(objarray[i].data.runs[0].run.times.primary_t);
         timearray.push(objarray[i].data.runs[0].run.times.primary_t);
 
         // console.log(objarray);
@@ -166,9 +173,31 @@ function GenerateTable() {
       });
     });
   }
-  // console.log(objarray);
-  // console.log(timearray)
+
+  for (let i = 0; i < apiUrl2.length; i++) {
+    fetch(apiUrl2[i]).then(function (response2) {
+      response2.text().then(function (text2) {
+       // storedText2 = text2;
+        obj2 = JSON.parse(text2);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray2.push(obj2);
+        //timearray = []
+        console.log(objarray2[i].data.runs[0].run.times.primary_t);
+        timearray2.push(objarray2[i].data.runs[0].run.times.primary_t);
+
+        // console.log(objarray);
+
+        //  console.log(objarray)
+        // console.log(objarray[0].data.runs[0].run.times.primary_t)
+      });
+    });
+  }
+
+  //console.log(objarray);
+   console.log(timearray)
   let kk = 69;
+  let ll = 0;
   for (let i = 0; i < apiUrl.length; i++) {
     fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
@@ -260,20 +289,26 @@ function GenerateTable() {
         //console.log(objarray)
         // console.log(objarray[0].data.runs[0].run.times.primary_t)
         //console.log(i)
-
-        function makeTable(urlid, ratinglabel, i) {
+       
+       // console.log(j)
+        function makeTable(urlid, ratinglabel, timever, i) {
           kk += 1;
-          console.log(kk);
+          //console.log(j)
+          //console.log(kk);
           //Build an array containing Customer records.
           var customers = new Array();
           //console.log(timearray[0])
           //console.log(timearray[1])
-          console.log(i);
-          console.log(timearray[i]);
+          
+         // console.log(timearray[i]);
           customers.push([ratinglabel, "", "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
-          customers.push([1, "John Hammond", timearray[i], "youtube"]);
-          customers.push([2, "Mudassar Khan", "India", "youtube"]);
+          for (let j = 0; j < timever.length; j++){
+            customers.push([1, "John Hammond", timever[j], "youtube"]);
+          }
+
+          
+         // customers.push([2, "Mudassar Khan", timever[i], "youtube"]);
           customers.push([3, "Suzanne Mathews", "France", "youtube"]);
           customers.push([4, "Robert Schidner", "Russia", "youtube"]);
 
@@ -313,10 +348,13 @@ function GenerateTable() {
           dvTable.appendChild(table);
           // fetchInfo();
         }
-        makeTable("dvTable", "SA", i - 1);
-        makeTable("dvTable2", "SA/SO", i);
+        console.log(i);
+        makeTable("dvTable", "SA", timearray, i);
+        makeTable("dvTable2", "SA/SO", timearray2, i);
       });
     });
+    //console.log(i);
+    ll++;
   }
 }
 
