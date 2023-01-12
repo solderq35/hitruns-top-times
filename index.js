@@ -119,7 +119,7 @@ function done() {
 
 // https://www.aspsnippets.com/Articles/Create-dynamic-Table-in-HTML-at-runtime-using-JavaScript.aspx
 
-function GenerateTable() {
+async function GenerateTable() {
   let runLinkInput = document.getElementById("runLink").value;
   let runDiffInput = document.getElementById("diffInput").value;
   let runReasonInput = document.getElementById("reasonInput").value;
@@ -148,14 +148,16 @@ function GenerateTable() {
   //console.log(apiUrl.length);
   let obj;
   let objarray = [];
+  let playerarray = [];
   let timearray = [];
 
   let obj2;
   let objarray2 = [];
+  let playerarray2 = [];
   let timearray2 = [];
 
   for (let i = 0; i < apiUrl.length; i++) {
-    fetch(apiUrl[i]).then(function (response) {
+    await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
         //storedText = text;
         obj = JSON.parse(text);
@@ -163,8 +165,16 @@ function GenerateTable() {
         //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
         //timearray = []
-      //  console.log(objarray[i].data.runs[0].run.times.primary_t);
+        //  console.log(objarray[i].data.runs[0].run.times.primary_t);
         timearray.push(objarray[i].data.runs[0].run.times.primary_t);
+
+        //console.log(obj.data.players.data[0].names.international)
+
+        if (obj.data.players.data[0].rel == "user") {
+          playerarray.push(obj.data.players.data[0].names.international);
+        } else if (obj.data.players.data[0].rel == "guest") {
+          playerarray.push(obj.data.players.data[0].name);
+        }
 
         // console.log(objarray);
 
@@ -175,9 +185,9 @@ function GenerateTable() {
   }
 
   for (let i = 0; i < apiUrl2.length; i++) {
-    fetch(apiUrl2[i]).then(function (response2) {
+    await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
-       // storedText2 = text2;
+        // storedText2 = text2;
         obj2 = JSON.parse(text2);
         //objarray = [];
         //  for (let i = 0; i < apiUrl.length; i++) {
@@ -185,6 +195,12 @@ function GenerateTable() {
         //timearray = []
         console.log(objarray2[i].data.runs[0].run.times.primary_t);
         timearray2.push(objarray2[i].data.runs[0].run.times.primary_t);
+
+        if (obj2.data.players.data[0].rel == "user") {
+          playerarray2.push(obj2.data.players.data[0].names.international);
+        } else if (obj2.data.players.data[0].rel == "guest") {
+          playerarray2.push(obj2.data.players.data[0].name);
+        }
 
         // console.log(objarray);
 
@@ -195,7 +211,8 @@ function GenerateTable() {
   }
 
   //console.log(objarray);
-   console.log(timearray)
+  console.log(timearray);
+  console.log(playerarray);
   let kk = 69;
   let ll = 0;
   for (let i = 0; i < apiUrl.length; i++) {
@@ -289,9 +306,9 @@ function GenerateTable() {
         //console.log(objarray)
         // console.log(objarray[0].data.runs[0].run.times.primary_t)
         //console.log(i)
-       
-       // console.log(j)
-        function makeTable(urlid, ratinglabel, timever, i) {
+
+        // console.log(j)
+        function makeTable(urlid, ratinglabel, playerver, timever, i) {
           kk += 1;
           //console.log(j)
           //console.log(kk);
@@ -299,18 +316,17 @@ function GenerateTable() {
           var customers = new Array();
           //console.log(timearray[0])
           //console.log(timearray[1])
-          
-         // console.log(timearray[i]);
+
+          // console.log(timearray[i]);
           customers.push([ratinglabel, "", "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
-          for (let j = 0; j < timever.length; j++){
-            customers.push([1, "John Hammond", timever[j], "youtube"]);
+          for (let j = 0; j < timever.length; j++) {
+            customers.push([1, playerver[j], timever[j], "youtube"]);
           }
 
-          
-         // customers.push([2, "Mudassar Khan", timever[i], "youtube"]);
-          customers.push([3, "Suzanne Mathews", "France", "youtube"]);
-          customers.push([4, "Robert Schidner", "Russia", "youtube"]);
+          // customers.push([2, "Mudassar Khan", timever[i], "youtube"]);
+          //  customers.push([3, "Suzanne Mathews", "France", "youtube"]);
+          //  customers.push([4, "Robert Schidner", "Russia", "youtube"]);
 
           //Create a HTML Table element.
           var table = document.createElement("TABLE");
@@ -349,8 +365,8 @@ function GenerateTable() {
           // fetchInfo();
         }
         console.log(i);
-        makeTable("dvTable", "SA", timearray, i);
-        makeTable("dvTable2", "SA/SO", timearray2, i);
+        makeTable("dvTable", "SA", playerarray, timearray, i);
+        makeTable("dvTable2", "SA/SO", playerarray2, timearray2, i);
       });
     });
     //console.log(i);
