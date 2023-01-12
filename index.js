@@ -19,98 +19,6 @@ if (!String.linkify) {
   };
 }
 
-function fetchInfo() {
-  let runLinkInput = document.getElementById("runLink").value;
-  let runDiffInput = document.getElementById("diffInput").value;
-  let runReasonInput = document.getElementById("reasonInput").value;
-  let idslice = runLinkInput.slice(-8);
-  let playerEmbed = "?embed=players,category.variables,level";
-  let idPlusEmbeds = idslice.concat(playerEmbed);
-  let apiDomain = "https://www.speedrun.com/api/v1/runs/";
-  //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
-  //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
-  let apiUrl =
-    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1";
-  let apiUrl2 =
-    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1";
-  let playerName = document.getElementById("playerCell_0");
-  let categoryName = document.getElementById("categoryCell_0");
-  let timeName = document.getElementById("timeCell_0");
-  let dateName = document.getElementById("dateCell_0");
-  let videoName = document.getElementById("videoCell_0");
-  let reasonName = document.getElementById("reasonCell_0");
-  let apiUrlName = document.getElementById("apiUrlDiv_0");
-
-  fetch(apiUrl).then(function (response) {
-    response.text().then(function (text) {
-      storedText = text;
-      const obj = JSON.parse(text);
-      //console.log(obj.data.runs[0].run.times.primary_t);
-      //playerName.innerHTML = obj.data.players.data[0].names.international;
-      let finaltime;
-      let initialTime = obj.data.runs[0].run.times.primary_t;
-      let finalTime;
-      let minutes;
-      let seconds;
-      let hours;
-      //console.log(initialTime);
-      //console.log(obj.data.players.data[0].rel);
-      if (obj.data.players.data[0].rel == "user") {
-        playerName.innerHTML = obj.data.players.data[0].names.international;
-      } else if (obj.data.players.data[0].rel == "guest") {
-        playerName.innerHTML = obj.data.players.data[0].name;
-      }
-
-      if (initialTime >= 3600) {
-        hours = parseInt(initialTime / 3600);
-        // console.log(hours);
-        minutes = parseInt(initialTime / 60) - hours * 60;
-        seconds = initialTime % 60;
-        if (seconds > 9 && minutes > 0) {
-          finalTime =
-            hours.toString() +
-            ":" +
-            minutes.toString() +
-            ":" +
-            seconds.toString();
-        } else if (seconds <= 9 && minutes > 0) {
-          finalTime =
-            hours.toString() +
-            ":" +
-            minutes.toString() +
-            ":0" +
-            seconds.toString();
-          //console.log(hours);
-        }
-      } else {
-        if (initialTime < 60 && initialTime >= 10) {
-          finalTime = "0:" + initialTime;
-        } else if (initialTime <= 9) {
-          finalTime = "0:0" + initialTime;
-        } else if (initialTime >= 60) {
-          minutes = parseInt(initialTime / 60);
-          seconds = initialTime % 60;
-          if (seconds > 9 && minutes > 0) {
-            finalTime = minutes.toString() + ":" + seconds.toString();
-          } else if (seconds <= 9 && minutes > 0) {
-            finalTime = minutes.toString() + ":0" + seconds.toString();
-          }
-        }
-      }
-      timeName.innerHTML = finalTime;
-      dateName.innerHTML = obj.data.date;
-      videoName.innerHTML = obj.data.videos.links[0].uri.linkify();
-      reasonName.innerHTML = runReasonInput;
-      categoryName.innerHTML =
-        obj.data.level.data.name +
-        " " +
-        obj.data.category.data.name +
-        " " +
-        runDiffInput;
-      apiUrlName.innerHTML = apiUrl.linkify();
-    });
-  });
-}
 
 function done() {
   document.getElementById("log").textContent =
@@ -163,7 +71,7 @@ async function GenerateTable() {
   let playerarray = [];
   let videoarray = [];
   let timearray = [];
-  let totalTime = [];
+  let totalTime = 0;
 
 
 
@@ -183,7 +91,8 @@ async function GenerateTable() {
 
         
         
-        totalTime.push(objarray[i].data.runs[0].run.times.primary_t);
+        totalTime += objarray[i].data.runs[0].run.times.primary_t;
+        console.log(totalTime)
 
         let initialTime = objarray[i].data.runs[0].run.times.primary_t;
         let finalTime;
@@ -341,82 +250,9 @@ async function GenerateTable() {
       });
     });
   }
-  const sum = totalTime.reduce((partialSum, a) => partialSum + a, 0)
-
-  if (sum >= 3600) {
-    hours = parseInt(sum / 3600);
-    // console.log(hours);
-    minutes = parseInt(sum / 60) - hours * 60;
-    seconds = sum % 60;
-    if (seconds > 9 && minutes > 0) {
-      finalSum =
-        hours.toString() +
-        ":" +
-        minutes.toString() +
-        ":" +
-        seconds.toString();
-    } else if (seconds <= 9 && minutes > 0) {
-      finalSum =
-        hours.toString() +
-        ":" +
-        minutes.toString() +
-        ":0" +
-        seconds.toString();
-      //console.log(hours);
-    }
-  } else {
-    if (sum < 60 && sum >= 10) {
-      finalSum = "0:" + sum;
-    } else if (sum <= 9) {
-      finalSum = "0:0" + sum;
-    } else if (sum >= 60) {
-      minutes = parseInt(sum / 60);
-      seconds = sum % 60;
-      if (seconds > 9 && minutes > 0) {
-        finalSum = minutes.toString() + ":" + seconds.toString();
-      } else if (seconds <= 9 && minutes > 0) {
-        finalSum = minutes.toString() + ":0" + seconds.toString();
-      }
-    }
-  }
 
  // const sum2 = totalTime2.reduce((partialsum2, a) => partialsum2 + a, 0)
-  if (totalTime2 >= 3600) {
-    hours = parseInt(totalTime2 / 3600);
-    // console.log(hours);
-    minutes = parseInt(totalTime2 / 60) - hours * 60;
-    seconds = totalTime2 % 60;
-    if (seconds > 9 && minutes > 0) {
-      finaltotalTime2 =
-        hours.toString() +
-        ":" +
-        minutes.toString() +
-        ":" +
-        seconds.toString();
-    } else if (seconds <= 9 && minutes > 0) {
-      finaltotalTime2 =
-        hours.toString() +
-        ":" +
-        minutes.toString() +
-        ":0" +
-        seconds.toString();
-      //console.log(hours);
-    }
-  } else {
-    if (totalTime2 < 60 && totalTime2 >= 10) {
-      finaltotalTime2 = "0:" + totalTime2;
-    } else if (totalTime2 <= 9) {
-      finaltotalTime2 = "0:0" + totalTime2;
-    } else if (totalTime2 >= 60) {
-      minutes = parseInt(totalTime2 / 60);
-      seconds = totalTime2 % 60;
-      if (seconds > 9 && minutes > 0) {
-        finaltotalTime2 = minutes.toString() + ":" + seconds.toString();
-      } else if (seconds <= 9 && minutes > 0) {
-        finaltotalTime2 = minutes.toString() + ":0" + seconds.toString();
-      }
-    }
-  }
+
   
  console.log(totalTime2)
  // console.log(timearray2)
@@ -496,8 +332,85 @@ async function GenerateTable() {
           playerver,
           timever,
           videover,
+          totalTimever,
           i
         ) {
+/*
+          if (totalTime >= 3600) {
+            hours = parseInt(totalTime / 3600);
+            // console.log(hours);
+            minutes = parseInt(totalTime / 60) - hours * 60;
+            seconds = totalTime % 60;
+            if (seconds > 9 && minutes > 0) {
+              finaltotalTime =
+                hours.toString() +
+                ":" +
+                minutes.toString() +
+                ":" +
+                seconds.toString();
+            } else if (seconds <= 9 && minutes > 0) {
+              finaltotalTime =
+                hours.toString() +
+                ":" +
+                minutes.toString() +
+                ":0" +
+                seconds.toString();
+              //console.log(hours);
+            }
+          } else {
+            if (totalTime < 60 && totalTime >= 10) {
+              finaltotalTime = "0:" + totalTime;
+            } else if (totalTime <= 9) {
+              finaltotalTime = "0:0" + totalTime;
+            } else if (totalTime >= 60) {
+              minutes = parseInt(totalTime / 60);
+              seconds = totalTime % 60;
+              if (seconds > 9 && minutes > 0) {
+                finaltotalTime = minutes.toString() + ":" + seconds.toString();
+              } else if (seconds <= 9 && minutes > 0) {
+                finaltotalTime = minutes.toString() + ":0" + seconds.toString();
+              }
+            }
+          }
+          */
+
+          if (totalTimever >= 3600) {
+            hours = parseInt(totalTimever / 3600);
+            // console.log(hours);
+            minutes = parseInt(totalTimever / 60) - hours * 60;
+            seconds = totalTimever % 60;
+            if (seconds > 9 && minutes > 0) {
+              finaltotalTimever =
+                hours.toString() +
+                ":" +
+                minutes.toString() +
+                ":" +
+                seconds.toString();
+            } else if (seconds <= 9 && minutes > 0) {
+              finaltotalTimever =
+                hours.toString() +
+                ":" +
+                minutes.toString() +
+                ":0" +
+                seconds.toString();
+              //console.log(hours);
+            }
+          } else {
+            if (totalTimever < 60 && totalTimever >= 10) {
+              finaltotalTimever = "0:" + totalTimever;
+            } else if (totalTimever <= 9) {
+              finaltotalTimever = "0:0" + totalTimever;
+            } else if (totalTimever >= 60) {
+              minutes = parseInt(totalTimever / 60);
+              seconds = totalTimever % 60;
+              if (seconds > 9 && minutes > 0) {
+                finaltotalTimever = minutes.toString() + ":" + seconds.toString();
+              } else if (seconds <= 9 && minutes > 0) {
+                finaltotalTimever = minutes.toString() + ":0" + seconds.toString();
+              }
+            }
+          }
+
           kk += 1;
           //console.log(j)
           //console.log(kk);
@@ -506,9 +419,9 @@ async function GenerateTable() {
           //console.log(timearray[0])
           //console.log(timearray[1])
 
-          customers.push([ratinglabel, totalTime2, "", ""]);
+          customers.push([ratinglabel, finaltotalTimever, "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
-          for (let j = 0; j < timever.length; j++) {
+          for (let j = 0; j < levelver.length; j++) {
             customers.push([
               levelver[j],
               playerver[j],
@@ -566,6 +479,7 @@ async function GenerateTable() {
           playerarray,
           timearray,
           videoarray,
+          totalTime,
           i
         );
         makeTable(
@@ -575,6 +489,7 @@ async function GenerateTable() {
           playerarray2,
           timearray2,
           videoarray2,
+          totalTime2,
           i
         );
       });
