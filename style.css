@@ -1,0 +1,66 @@
+table,
+th,
+td {
+  border: 1px black solid;
+  border-collapse: collapse;
+  text-align: left;
+  width: 140px;
+}
+th,
+td {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
+  font-family: Arial;
+  font-size: 13px;
+}
+table {
+  table-layout: fixed;
+}
+
+td {
+  word-wrap: break-word;
+  vertical-align: top;
+}
+
+table.toptable,
+td.toptable,
+th.toptable {
+  border: 1px transparent;
+  border-collapse: collapse;
+}
+
+p,
+h1,
+h2,
+h3 {
+  font-family: Arial;
+}
+
+a {
+  font-family: Arial;
+  color: blue;
+}
+
+input#runLink {
+  width: 400px;
+}
+
+th#toprunlabel {
+  width: 330px;
+}
+
+th#topdifflabel {
+  width: 125px;
+}
+
+th#toppatchlabel {
+  width: 150px;
+}
+
+button {
+  width: 120px;
+  height: 40px;
+  font-size: 24px;
+}
