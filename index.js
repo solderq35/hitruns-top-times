@@ -173,18 +173,62 @@ async function GenerateTable() {
         //timearray = []
         //  console.log(objarray[i].data.runs[0].run.times.primary_t);
         //obj.data.runs[0].run.times.primary_t;
-        timearray.push(objarray[i].data.runs[0].run.times.primary_t);
+
+        let initialTime = objarray[i].data.runs[0].run.times.primary_t;
+        let finalTime;
+
+        if (initialTime >= 3600) {
+          hours = parseInt(initialTime / 3600);
+          // console.log(hours);
+          minutes = parseInt(initialTime / 60) - hours * 60;
+          seconds = initialTime % 60;
+          if (seconds > 9 && minutes > 0) {
+            finalTime =
+              hours.toString() +
+              ":" +
+              minutes.toString() +
+              ":" +
+              seconds.toString();
+          } else if (seconds <= 9 && minutes > 0) {
+            finalTime =
+              hours.toString() +
+              ":" +
+              minutes.toString() +
+              ":0" +
+              seconds.toString();
+            //console.log(hours);
+          }
+        } else {
+          if (initialTime < 60 && initialTime >= 10) {
+            finalTime = "0:" + initialTime;
+          } else if (initialTime <= 9) {
+            finalTime = "0:0" + initialTime;
+          } else if (initialTime >= 60) {
+            minutes = parseInt(initialTime / 60);
+            seconds = initialTime % 60;
+            if (seconds > 9 && minutes > 0) {
+              finalTime = minutes.toString() + ":" + seconds.toString();
+            } else if (seconds <= 9 && minutes > 0) {
+              finalTime = minutes.toString() + ":0" + seconds.toString();
+            }
+          }
+        }
+
+        timearray.push(finalTime);
 
         //console.log(obj.data.players.data[0].names.international)
 
         if (objarray[i].data.players.data[0].rel == "user") {
-          playerarray.push(objarray[i].data.players.data[0].names.international);
+          playerarray.push(
+            objarray[i].data.players.data[0].names.international
+          );
         } else if (objarray[i].data.players.data[0].rel == "guest") {
           playerarray.push(objarray[i].data.players.data[0].name);
         }
-        
-        videoarray.push(objarray[i].data.runs[0].run.videos.links[0].uri.linkify());
 
+        videoarray.push(
+          objarray[i].data.runs[0].run.videos.links[0].uri.linkify()
+        );
 
         // console.log(objarray);
 
@@ -206,15 +250,60 @@ async function GenerateTable() {
         levelarray2.push(objarray2[i].data.level.data.name);
         //timearray = []
         console.log(objarray2[i].data.runs[0].run.times.primary_t);
-        timearray2.push(objarray2[i].data.runs[0].run.times.primary_t);
+
+        let initialTime2 = objarray2[i].data.runs[0].run.times.primary_t;
+        let finalTime2;
+
+        if (initialTime2 >= 3600) {
+          hours = parseInt(initialTime2 / 3600);
+          // console.log(hours);
+          minutes = parseInt(initialTime2 / 60) - hours * 60;
+          seconds = initialTime2 % 60;
+          if (seconds > 9 && minutes > 0) {
+            finalTime2 =
+              hours.toString() +
+              ":" +
+              minutes.toString() +
+              ":" +
+              seconds.toString();
+          } else if (seconds <= 9 && minutes > 0) {
+            finalTime2 =
+              hours.toString() +
+              ":" +
+              minutes.toString() +
+              ":0" +
+              seconds.toString();
+            //console.log(hours);
+          }
+        } else {
+          if (initialTime2 < 60 && initialTime2 >= 10) {
+            finalTime2 = "0:" + initialTime2;
+          } else if (initialTime2 <= 9) {
+            finalTime2 = "0:0" + initialTime2;
+          } else if (initialTime2 >= 60) {
+            minutes = parseInt(initialTime2 / 60);
+            seconds = initialTime2 % 60;
+            if (seconds > 9 && minutes > 0) {
+              finalTime2 = minutes.toString() + ":" + seconds.toString();
+            } else if (seconds <= 9 && minutes > 0) {
+              finalTime2 = minutes.toString() + ":0" + seconds.toString();
+            }
+          }
+        }
+
+        timearray2.push(finalTime2);
 
         if (objarray2[i].data.players.data[0].rel == "user") {
-          playerarray2.push(objarray2[i].data.players.data[0].names.international);
+          playerarray2.push(
+            objarray2[i].data.players.data[0].names.international
+          );
         } else if (objarray2[i].data.players.data[0].rel == "guest") {
           playerarray2.push(objarray2[i].data.players.data[0].name);
         }
 
-        videoarray2.push(objarray2[i].data.runs[0].run.videos.links[0].uri.linkify());
+        videoarray2.push(
+          objarray2[i].data.runs[0].run.videos.links[0].uri.linkify()
+        );
 
         // console.log(objarray);
 
@@ -324,7 +413,15 @@ async function GenerateTable() {
         //console.log(i)
 
         // console.log(j)
-        function makeTable(urlid, ratinglabel, levelver, playerver, timever, videover, i) {
+        function makeTable(
+          urlid,
+          ratinglabel,
+          levelver,
+          playerver,
+          timever,
+          videover,
+          i
+        ) {
           kk += 1;
           //console.log(j)
           //console.log(kk);
@@ -337,7 +434,12 @@ async function GenerateTable() {
           customers.push([ratinglabel, "", "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < timever.length; j++) {
-            customers.push([levelver[j], playerver[j], timever[j], videover[2]]);
+            customers.push([
+              levelver[j],
+              playerver[j],
+              timever[j],
+              videover[j],
+            ]);
           }
 
           // customers.push([2, "Mudassar Khan", timever[i], "youtube"]);
@@ -381,8 +483,24 @@ async function GenerateTable() {
           // fetchInfo();
         }
         console.log(i);
-        makeTable("dvTable", "SA", levelarray, playerarray, timearray, videoarray, i);
-        makeTable("dvTable2", "SA/SO", levelarray2, playerarray2, timearray2, videoarray2, i);
+        makeTable(
+          "dvTable",
+          "SA",
+          levelarray,
+          playerarray,
+          timearray,
+          videoarray,
+          i
+        );
+        makeTable(
+          "dvTable2",
+          "SA/SO",
+          levelarray2,
+          playerarray2,
+          timearray2,
+          videoarray2,
+          i
+        );
       });
     });
     //console.log(i);
