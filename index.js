@@ -129,14 +129,25 @@ async function GenerateTable() {
   let apiDomain = "https://www.speedrun.com/api/v1/runs/";
   //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
   //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
-  let apiUrl = [
-    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
-    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/5wkexvpw/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
-  ];
-  let apiUrl2 = [
-    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
-    "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/5wkexvpw/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1",
-  ];
+  let apiprefix = "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/";
+  let apipostfix = "&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1";
+  let levelapiarray = ["y9mg6vx9/", "5wkexvpw/", "592rk13d/"];
+  let categoryapiarray = ["7kj890zd", "jdronyld"];
+  let difficultyapiarray = ["?var-p854xo3l=gq7jpmpq", "?var-p854xo3l=21g85z6l", "?var-r8r1dv7n=21dz5xpl", "?var-r8r1dv7n=5q86pwy1"]
+  //let finalurlsa = apiprefix + levelapiarray[i + categoryapiarray[0]]
+
+  let apiUrl = [];
+  for (let i = 0; i < levelapiarray.length; i++){
+    apiUrl.push(apiprefix + "level/" + levelapiarray[i] + categoryapiarray[0]+ difficultyapiarray[1]+ apipostfix)
+  }
+ 
+  //console.log(apiUrl);
+  let apiUrl2 = [];
+  for (let i = 0; i < levelapiarray.length; i++){
+    apiUrl2.push(apiprefix + "level/" + levelapiarray[i] + categoryapiarray[1]+difficultyapiarray[3]+apipostfix)
+  }
+
+ // console.log(apiUrl2);
   let playerName = document.getElementById("playerCell_0");
   let categoryName = document.getElementById("categoryCell_0");
   let timeName = document.getElementById("timeCell_0");
@@ -152,13 +163,9 @@ async function GenerateTable() {
   let playerarray = [];
   let videoarray = [];
   let timearray = [];
+  let totalTime = [];
 
-  let obj2;
-  let objarray2 = [];
-  let levelarray2 = [];
-  let playerarray2 = [];
-  let videoarray2 = [];
-  let timearray2 = [];
+
 
   for (let i = 0; i < apiUrl.length; i++) {
     await fetch(apiUrl[i]).then(function (response) {
@@ -173,6 +180,10 @@ async function GenerateTable() {
         //timearray = []
         //  console.log(objarray[i].data.runs[0].run.times.primary_t);
         //obj.data.runs[0].run.times.primary_t;
+
+        
+        
+        totalTime.push(objarray[i].data.runs[0].run.times.primary_t);
 
         let initialTime = objarray[i].data.runs[0].run.times.primary_t;
         let finalTime;
@@ -214,6 +225,7 @@ async function GenerateTable() {
           }
         }
 
+       // console.log(timearray)
         timearray.push(finalTime);
 
         //console.log(obj.data.players.data[0].names.international)
@@ -237,8 +249,15 @@ async function GenerateTable() {
       });
     });
   }
-
-  for (let i = 0; i < apiUrl2.length; i++) {
+  
+  let obj2;
+  let objarray2 = [];
+  let levelarray2 = [];
+  let playerarray2 = [];
+  let videoarray2 = [];
+  let timearray2 = [];
+  let totalTime2 = 0;
+  for (let i = 0; i < apiUrl.length; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
         // storedText2 = text2;
@@ -249,7 +268,13 @@ async function GenerateTable() {
 
         levelarray2.push(objarray2[i].data.level.data.name);
         //timearray = []
-        console.log(objarray2[i].data.runs[0].run.times.primary_t);
+      //  console.log(objarray2[i].data.runs[0].run.times.primary_t);
+      totalTime2 += objarray2[i].data.runs[0].run.times.primary_t;
+     // let dog = typeof(objarray2[i].data.runs[0].run.times.primary_t);
+     // console.log(dog);
+     // console.log(totalTime2);
+
+     // console.log(objarray2[i].data.runs[0].run.times.primary_t);
 
         let initialTime2 = objarray2[i].data.runs[0].run.times.primary_t;
         let finalTime2;
@@ -290,8 +315,10 @@ async function GenerateTable() {
             }
           }
         }
+        //console.log(timearray2)
 
         timearray2.push(finalTime2);
+        
 
         if (objarray2[i].data.players.data[0].rel == "user") {
           playerarray2.push(
@@ -305,6 +332,8 @@ async function GenerateTable() {
           objarray2[i].data.runs[0].run.videos.links[0].uri.linkify()
         );
 
+        //console.log(totalTime2);
+
         // console.log(objarray);
 
         //  console.log(objarray)
@@ -312,12 +341,95 @@ async function GenerateTable() {
       });
     });
   }
+  const sum = totalTime.reduce((partialSum, a) => partialSum + a, 0)
 
-  console.log(objarray);
-  console.log(videoarray);
-  console.log(levelarray);
-  console.log(timearray);
-  console.log(playerarray);
+  if (sum >= 3600) {
+    hours = parseInt(sum / 3600);
+    // console.log(hours);
+    minutes = parseInt(sum / 60) - hours * 60;
+    seconds = sum % 60;
+    if (seconds > 9 && minutes > 0) {
+      finalSum =
+        hours.toString() +
+        ":" +
+        minutes.toString() +
+        ":" +
+        seconds.toString();
+    } else if (seconds <= 9 && minutes > 0) {
+      finalSum =
+        hours.toString() +
+        ":" +
+        minutes.toString() +
+        ":0" +
+        seconds.toString();
+      //console.log(hours);
+    }
+  } else {
+    if (sum < 60 && sum >= 10) {
+      finalSum = "0:" + sum;
+    } else if (sum <= 9) {
+      finalSum = "0:0" + sum;
+    } else if (sum >= 60) {
+      minutes = parseInt(sum / 60);
+      seconds = sum % 60;
+      if (seconds > 9 && minutes > 0) {
+        finalSum = minutes.toString() + ":" + seconds.toString();
+      } else if (seconds <= 9 && minutes > 0) {
+        finalSum = minutes.toString() + ":0" + seconds.toString();
+      }
+    }
+  }
+
+ // const sum2 = totalTime2.reduce((partialsum2, a) => partialsum2 + a, 0)
+  if (totalTime2 >= 3600) {
+    hours = parseInt(totalTime2 / 3600);
+    // console.log(hours);
+    minutes = parseInt(totalTime2 / 60) - hours * 60;
+    seconds = totalTime2 % 60;
+    if (seconds > 9 && minutes > 0) {
+      finaltotalTime2 =
+        hours.toString() +
+        ":" +
+        minutes.toString() +
+        ":" +
+        seconds.toString();
+    } else if (seconds <= 9 && minutes > 0) {
+      finaltotalTime2 =
+        hours.toString() +
+        ":" +
+        minutes.toString() +
+        ":0" +
+        seconds.toString();
+      //console.log(hours);
+    }
+  } else {
+    if (totalTime2 < 60 && totalTime2 >= 10) {
+      finaltotalTime2 = "0:" + totalTime2;
+    } else if (totalTime2 <= 9) {
+      finaltotalTime2 = "0:0" + totalTime2;
+    } else if (totalTime2 >= 60) {
+      minutes = parseInt(totalTime2 / 60);
+      seconds = totalTime2 % 60;
+      if (seconds > 9 && minutes > 0) {
+        finaltotalTime2 = minutes.toString() + ":" + seconds.toString();
+      } else if (seconds <= 9 && minutes > 0) {
+        finaltotalTime2 = minutes.toString() + ":0" + seconds.toString();
+      }
+    }
+  }
+  
+ console.log(totalTime2)
+ // console.log(timearray2)
+  //const sum2 = totalTime2.reduce((partialSum, a) => partialSum + a, 0)
+  //console.log(sum2)
+  //console.log("final sum")
+
+//  console.log(finalSum2);
+ // console.log(objarray);
+ // console.log(videoarray);
+ // console.log(levelarray);
+//  console.log(timearray);
+ // console.log(playerarray);
   let kk = 69;
   let ll = 0;
   for (let i = 0; i < apiUrl.length; i++) {
@@ -356,42 +468,6 @@ async function GenerateTable() {
           playerName.innerHTML = obj.data.players.data[0].name;
         }
 
-        if (initialTime >= 3600) {
-          hours = parseInt(initialTime / 3600);
-          // console.log(hours);
-          minutes = parseInt(initialTime / 60) - hours * 60;
-          seconds = initialTime % 60;
-          if (seconds > 9 && minutes > 0) {
-            finalTime =
-              hours.toString() +
-              ":" +
-              minutes.toString() +
-              ":" +
-              seconds.toString();
-          } else if (seconds <= 9 && minutes > 0) {
-            finalTime =
-              hours.toString() +
-              ":" +
-              minutes.toString() +
-              ":0" +
-              seconds.toString();
-            //console.log(hours);
-          }
-        } else {
-          if (initialTime < 60 && initialTime >= 10) {
-            finalTime = "0:" + initialTime;
-          } else if (initialTime <= 9) {
-            finalTime = "0:0" + initialTime;
-          } else if (initialTime >= 60) {
-            minutes = parseInt(initialTime / 60);
-            seconds = initialTime % 60;
-            if (seconds > 9 && minutes > 0) {
-              finalTime = minutes.toString() + ":" + seconds.toString();
-            } else if (seconds <= 9 && minutes > 0) {
-              finalTime = minutes.toString() + ":0" + seconds.toString();
-            }
-          }
-        }
 
         timeName.innerHTML = finalTime;
         dateName.innerHTML = obj.data.date;
@@ -430,8 +506,7 @@ async function GenerateTable() {
           //console.log(timearray[0])
           //console.log(timearray[1])
 
-          // console.log(timearray[i]);
-          customers.push([ratinglabel, "", "", ""]);
+          customers.push([ratinglabel, totalTime2, "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < timever.length; j++) {
             customers.push([
@@ -482,7 +557,8 @@ async function GenerateTable() {
           dvTable.appendChild(table);
           // fetchInfo();
         }
-        console.log(i);
+       // console.log(i);
+      // console.log(totalTime2)
         makeTable(
           "dvTable",
           "SA",
