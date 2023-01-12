@@ -4,7 +4,7 @@ td {
   border: 1px black solid;
   border-collapse: collapse;
   text-align: left;
-  width: 140px;
+  width: 100px;
 }
 th,
 td {
@@ -63,4 +63,26 @@ button {
   width: 120px;
   height: 40px;
   font-size: 24px;
+}
+
+div#dvTable {
+  float: left;
+}
+
+div#dvTable2 {
+  float: left;
+}
+
+/*
+table#categoryLabelTable2{
+  float:left;
+  vertical-align: top;
+}
+*/
+
+table#categoryLabelTable {
+  float: left;
+}
+table#categoryLabelTable2 {
+  float: left;
 }
