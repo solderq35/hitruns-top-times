@@ -27,7 +27,7 @@ async function GenerateTable() {
   //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
   let apiprefix = "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/";
   let apipostfix = "&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1";
-  let levelapiarray = ["owo5jvkd/", "xd1ymo5d/", "ewpo3vjd/", "y9mg6vx9/", "5wkexvpw/", "592rk13d/"];
+  let levelapiarray = ["owo5jvkd/", "xd1ymo5d/", "ewpo3vjd/", "y9mg6vx9/", "5wkexvpw/", "592rk13d/", "gdronr6d/", "ywe3y0y9/", "5d7x1pg9/,", "y9mg6659/", "592rkkod/", "xd4e112w/", "n93l11n9/", "z98533g9/", "rdnx77qw", "ldykxxkw/", "ewpo32kd/", "5wkexm2w/", "592rk6od/", "29v0683w/"];
   let categoryapiarray = ["7kj890zd", "jdronyld"];
   let difficultyapiarray = ["?var-p854xo3l=gq7jpmpq", "?var-p854xo3l=21g85z6l", "?var-r8r1dv7n=21dz5xpl", "?var-r8r1dv7n=5q86pwy1"]
   //let finalurlsa = apiprefix + levelapiarray[i + categoryapiarray[0]]
@@ -44,13 +44,6 @@ async function GenerateTable() {
   }
 
  // console.log(apiUrl2);
-  let playerName = document.getElementById("playerCell_0");
-  let categoryName = document.getElementById("categoryCell_0");
-  let timeName = document.getElementById("timeCell_0");
-  let dateName = document.getElementById("dateCell_0");
-  let videoName = document.getElementById("videoCell_0");
-  let reasonName = document.getElementById("reasonCell_0");
-  let apiUrlName = document.getElementById("apiUrlDiv_0");
 
   //console.log(apiUrl.length);
   let obj;
