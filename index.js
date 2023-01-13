@@ -93,6 +93,54 @@ async function GenerateTable() {
   let videoarray = [];
   let timearray = [];
   let totalTime = 0;
+  let s3Time = 0;
+  let s1Time = 0;
+  let s2Time = 0;
+
+  for (let i = 0; i < 6; i++) {
+    await fetch(apiUrl[i]).then(function (response) {
+      response.text().then(function (text) {
+        //storedText = text;
+        obj = JSON.parse(text);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray.push(obj);
+
+        s3Time += objarray[i].data.runs[0].run.times.primary_t;
+        //  console.log(s3Time);
+      });
+    });
+  }
+
+  for (let i = 6; i < 13; i++) {
+    await fetch(apiUrl[i]).then(function (response) {
+      response.text().then(function (text) {
+        //storedText = text;
+        obj = JSON.parse(text);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray.push(obj);
+
+        s1Time += objarray[i].data.runs[0].run.times.primary_t;
+        console.log(s1Time);
+      });
+    });
+  }
+
+  for (let i = 13; i < 20; i++) {
+    await fetch(apiUrl[i]).then(function (response) {
+      response.text().then(function (text) {
+        //storedText = text;
+        obj = JSON.parse(text);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray.push(obj);
+
+        s2Time += objarray[i].data.runs[0].run.times.primary_t;
+        console.log(s2Time);
+      });
+    });
+  }
 
   for (let i = 0; i < apiUrl.length; i++) {
     await fetch(apiUrl[i]).then(function (response) {
@@ -183,6 +231,55 @@ async function GenerateTable() {
   let videoarray2 = [];
   let timearray2 = [];
   let totalTime2 = 0;
+  let s3Time2 = 0;
+  let s1Time2 = 0;
+  let s2Time2 = 0;
+
+  for (let i = 0; i < 6; i++) {
+    await fetch(apiUrl2[i]).then(function (response2) {
+      response2.text().then(function (text2) {
+        // storedText2 = text2;
+        obj2 = JSON.parse(text2);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray2.push(obj2);
+
+        s3Time2 += objarray2[i].data.runs[0].run.times.primary_t;
+        console.log(s3Time2);
+      });
+    });
+  }
+
+  for (let i = 6; i < 13; i++) {
+    await fetch(apiUrl2[i]).then(function (response2) {
+      response2.text().then(function (text2) {
+        // storedText2 = text2;
+        obj2 = JSON.parse(text2);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray2.push(obj2);
+
+        s1Time2 += objarray2[i].data.runs[0].run.times.primary_t;
+        console.log(s1Time2);
+      });
+    });
+  }
+
+  for (let i = 13; i < 20; i++) {
+    await fetch(apiUrl2[i]).then(function (response2) {
+      response2.text().then(function (text2) {
+        // storedText2 = text2;
+        obj2 = JSON.parse(text2);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray2.push(obj2);
+
+        s2Time2 += objarray2[i].data.runs[0].run.times.primary_t;
+        console.log(s2Time2);
+      });
+    });
+  }
+
   for (let i = 0; i < apiUrl.length; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
@@ -332,46 +429,53 @@ async function GenerateTable() {
           timever,
           videover,
           totalTimever,
+          s3Timever,
+          s1Timever,
+          s2Timever,
           i
         ) {
-          if (totalTimever >= 3600) {
-            hours = parseInt(totalTimever / 3600);
-            // console.log(hours);
-            minutes = parseInt(totalTimever / 60) - hours * 60;
-            seconds = totalTimever % 60;
-            if (seconds > 9 && minutes > 0) {
-              finaltotalTimever =
-                hours.toString() +
-                ":" +
-                minutes.toString() +
-                ":" +
-                seconds.toString();
-            } else if (seconds <= 9 && minutes > 0) {
-              finaltotalTimever =
-                hours.toString() +
-                ":" +
-                minutes.toString() +
-                ":0" +
-                seconds.toString();
-              //console.log(hours);
-            }
-          } else {
-            if (totalTimever < 60 && totalTimever >= 10) {
-              finaltotalTimever = "0:" + totalTimever;
-            } else if (totalTimever <= 9) {
-              finaltotalTimever = "0:0" + totalTimever;
-            } else if (totalTimever >= 60) {
-              minutes = parseInt(totalTimever / 60);
-              seconds = totalTimever % 60;
+          function SOB_function(totalTimeversion) {
+            if (totalTimeversion >= 3600) {
+              hours = parseInt(totalTimeversion / 3600);
+              // console.log(hours);
+              minutes = parseInt(totalTimeversion / 60) - hours * 60;
+              seconds = totalTimeversion % 60;
               if (seconds > 9 && minutes > 0) {
-                finaltotalTimever =
-                  minutes.toString() + ":" + seconds.toString();
+                finaltotalTimeversionhours.toString() +
+                  ":" +
+                  minutes.toString() +
+                  ":" +
+                  seconds.toString();
               } else if (seconds <= 9 && minutes > 0) {
-                finaltotalTimever =
-                  minutes.toString() + ":0" + seconds.toString();
+                finaltotalTimeversion =
+                  hours.toString() +
+                  ":" +
+                  minutes.toString() +
+                  ":0" +
+                  seconds.toString();
+                //console.log(hours);
+              }
+            } else {
+              if (totalTimeversion < 60 && totalTimeversion >= 10) {
+                finaltotalTimeversion = "0:" + totalTimeversion;
+              } else if (totalTimeversion <= 9) {
+                finaltotalTimeversion = "0:0" + totalTimeversion;
+              } else if (totalTimeversion >= 60) {
+                minutes = parseInt(totalTimeversion / 60);
+                seconds = totalTimeversion % 60;
+                if (seconds > 9 && minutes > 0) {
+                  finaltotalTimeversion =
+                    minutes.toString() + ":" + seconds.toString();
+                } else if (seconds <= 9 && minutes > 0) {
+                  finaltotalTimeversion =
+                    minutes.toString() + ":0" + seconds.toString();
+                }
               }
             }
+            return finaltotalTimeversion;
           }
+          //SOB_function(totalTimever);
+          //SOB_function(s3Timever);
 
           kk += 1;
           //console.log(j)
@@ -382,10 +486,10 @@ async function GenerateTable() {
           //console.log(timearray[1])
 
           customers.push([
-            ratinglabel,
-            "Total Time: " + finaltotalTimever,
-            "",
-            "",
+            ratinglabel + " Trilogy SOB: " + SOB_function(totalTimever),
+            ratinglabel + " S3 SOB: " + SOB_function(s3Timever),
+            ratinglabel + " S1 SOB: " + SOB_function(s1Timever),
+            ratinglabel + " S2 SOB: " + SOB_function(s2Timever),
           ]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < levelver.length; j++) {
@@ -447,6 +551,9 @@ async function GenerateTable() {
           timearray,
           videoarray,
           totalTime,
+          s3Time,
+          s1Time,
+          s2Time,
           i
         );
         makeTable(
@@ -457,6 +564,9 @@ async function GenerateTable() {
           timearray2,
           videoarray2,
           totalTime2,
+          s3Time2,
+          s1Time2,
+          s2Time2,
           i
         );
       });
