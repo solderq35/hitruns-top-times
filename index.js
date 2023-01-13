@@ -112,7 +112,7 @@ async function GenerateTable() {
     });
   }
 
-  for (let i = 6; i < 13; i++) {
+  for (let i = 6; i < 12; i++) {
     await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
         //storedText = text;
@@ -127,7 +127,7 @@ async function GenerateTable() {
     });
   }
 
-  for (let i = 13; i < 20; i++) {
+  for (let i = 12; i < 20; i++) {
     await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
         //storedText = text;
