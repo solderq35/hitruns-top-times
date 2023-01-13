@@ -19,9 +19,27 @@ if (!String.linkify) {
   };
 }
 
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
 // https://www.aspsnippets.com/Articles/Create-dynamic-Table-in-HTML-at-runtime-using-JavaScript.aspx
 
 async function GenerateTable() {
+
+  myFunction();
+
+  let headingvar = document.getElementById('header').innerHTML;
+console.log(headingvar);
+
+if (headingvar === "Hitman 3 Master IL Top Times"){
+  console.log("master header")
+}
   //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
   //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
   let apiprefix = "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/";

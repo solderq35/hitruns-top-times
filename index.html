@@ -2,9 +2,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="favicon.png" />
     <script src="index.js"></script>
-    <base target="_blank" />
+    <!--<base target="_blank" />-->
     <title>Hitruns Parser</title>
     <meta property="og:title" content="Hitruns Parser" />
     <meta
@@ -14,13 +15,24 @@
     <meta property="og:image" content="favicon.png" />
   </head>
   <body>
-    <h1>Hitman 3 Master IL Top Times</h1>
+    <div class="topnav" id="myTopnav">
+      <a href="#home" class="active">Master</a>
+      <a href="#contact">Pro</a>
+      <a href="#about">Any%</a>
+      <a href="fullgame.html" target="_blank">Full Game</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
 
-    <br />
-    <br />
+    <h1 id = "header">Hitman 3 Master IL Top Times</h1>
+
+
+    <p>NOTE: Please be patient while the site loads, it is making a lot of GET requests.</p>
+
     <a href="fullgame.html">Full Game</a>
-
-    <p id="total">test</p>
+    <br />
+    <br />
   </body>
 
   <div id="dvTable"></div>
