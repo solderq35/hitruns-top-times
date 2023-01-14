@@ -39,7 +39,17 @@ console.log(headingvar);
 
 if (headingvar === "Hitman 3 Master IL Top Times"){
   console.log("master header")
+  difficultychoice = "master";
 }
+else if (headingvar === "Hitman 3 Pro IL Top Times"){
+  console.log("pro header")
+  difficultychoice = "pro";
+}
+else if (headingvar === "Hitman 3 Any% IL Top Times"){
+  console.log("any% header")
+  difficultychoice = "any";
+}
+
   //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
   //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
   let apiprefix = "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/";
@@ -67,7 +77,7 @@ if (headingvar === "Hitman 3 Master IL Top Times"){
     "592rk6od/",
     "29v0683w/",
   ];
-  let categoryapiarray = ["7kj890zd", "jdronyld"];
+  let categoryapiarray = ["7kj890zd", "jdronyld", "jdz6nx62"];
   let difficultyapiarray = [
     "?var-p854xo3l=gq7jpmpq",
     "?var-p854xo3l=21g85z6l",
@@ -77,6 +87,12 @@ if (headingvar === "Hitman 3 Master IL Top Times"){
   //let finalurlsa = apiprefix + levelapiarray[i + categoryapiarray[0]]
 
   let apiUrl = [];
+  let apiUrl2 = [];
+
+
+if (difficultychoice == "master")
+{
+
   for (let i = 0; i < levelapiarray.length; i++) {
     apiUrl.push(
       apiprefix +
@@ -89,7 +105,7 @@ if (headingvar === "Hitman 3 Master IL Top Times"){
   }
 
   //console.log(apiUrl);
-  let apiUrl2 = [];
+  
   for (let i = 0; i < levelapiarray.length; i++) {
     apiUrl2.push(
       apiprefix +
@@ -100,6 +116,66 @@ if (headingvar === "Hitman 3 Master IL Top Times"){
         apipostfix
     );
   }
+
+}
+
+if (difficultychoice == "pro")
+{
+
+  for (let i = 0; i < levelapiarray.length; i++) {
+    apiUrl.push(
+      apiprefix +
+        "level/" +
+        levelapiarray[i] +
+        categoryapiarray[2] +
+        difficultyapiarray[0] +
+        apipostfix
+    );
+  }
+
+  //console.log(apiUrl);
+  
+  for (let i = 0; i < levelapiarray.length; i++) {
+    apiUrl2.push(
+      apiprefix +
+        "level/" +
+        levelapiarray[i] +
+        categoryapiarray[2] +
+        difficultyapiarray[2] +
+        apipostfix
+    );
+  }
+
+}
+
+if (difficultychoice == "any")
+{
+
+  for (let i = 0; i < levelapiarray.length; i++) {
+    apiUrl.push(
+      apiprefix +
+        "level/" +
+        levelapiarray[i] +
+        categoryapiarray[2] +
+        difficultyapiarray[0] +
+        apipostfix
+    );
+  }
+
+  //console.log(apiUrl);
+  
+  for (let i = 0; i < levelapiarray.length; i++) {
+    apiUrl2.push(
+      apiprefix +
+        "level/" +
+        levelapiarray[i] +
+        categoryapiarray[2] +
+        difficultyapiarray[2] +
+        apipostfix
+    );
+  }
+
+}
 
   // console.log(apiUrl2);
 
@@ -574,6 +650,7 @@ if (headingvar === "Hitman 3 Master IL Top Times"){
           s2Time,
           i
         );
+        if (difficultychoice != "any") {
         makeTable(
           "dvTable2",
           "SA/SO",
@@ -587,6 +664,7 @@ if (headingvar === "Hitman 3 Master IL Top Times"){
           s2Time2,
           i
         );
+      }
       });
     });
     //console.log(i);
