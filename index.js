@@ -127,7 +127,7 @@ if (difficultychoice == "pro")
       apiprefix +
         "level/" +
         levelapiarray[i] +
-        categoryapiarray[2] +
+        categoryapiarray[0] +
         difficultyapiarray[0] +
         apipostfix
     );
@@ -140,7 +140,7 @@ if (difficultychoice == "pro")
       apiprefix +
         "level/" +
         levelapiarray[i] +
-        categoryapiarray[2] +
+        categoryapiarray[1] +
         difficultyapiarray[2] +
         apipostfix
     );
@@ -170,7 +170,7 @@ if (difficultychoice == "any")
         "level/" +
         levelapiarray[i] +
         categoryapiarray[2] +
-        difficultyapiarray[2] +
+        difficultyapiarray[0] +
         apipostfix
     );
   }
