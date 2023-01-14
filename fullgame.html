@@ -2,9 +2,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="favicon.png" />
     <script src="fullgame.js"></script>
-    <base target="_blank" />
+    <!--<base target="_blank" />-->
     <title>Hitruns Parser</title>
     <meta property="og:title" content="Hitruns Parser" />
     <meta
@@ -13,57 +14,25 @@
     />
     <meta property="og:image" content="favicon.png" />
   </head>
-  <h1>Hitruns Parser (Full Game)</h1>
   <body>
-    <table class="toptable">
-      <tr class="toptable">
-        <th class="toptable" id="toprunlabel">Run Link Input</th>
-        <th class="toptable" id="topdifflabel">
-          Difficulty + Rating, CE Condition Input
-        </th>
-        <th class="toptable" id="toppatchlabel">Patch Invalidation Reason</th>
-      </tr>
-    </table>
-    <input onkeup="fetchInfo() type="text" id="runLink" value =
-    "https://www.speedrun.com/hitman_3/run/zx8rokem"> <input onkeup="fetchInfo()
-    type="text" id="diffInput" value = "SASO Pro"> <input onkeup="fetchInfo()
-    type="text" id="reasonInput" value = "Molly">
-    <pre id="log"></pre>
+    <div class="topnav" id="myTopnav">
+      <a href="index.html" class="active">Master</a>
+      <a href="pro.html">Pro</a>
+      <a href="any.html">Any%</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
 
+    <h1 id = "header">Hitman 3 Master IL Top Times</h1>
+
+
+    <p>NOTE: Please be patient while the site loads, it is making a lot of GET requests.</p>
     <br />
     <br />
-    <a href="index.html">Individual Levels</a>
-
-    <p>
-      In case of possible formatting issues, when pasting into Google Sheets,
-      use Ctrl+Shift+V (paste without formatting)
-    </p>
-    <p>
-      <b>API Link</b>
-    </p>
-    <p id="apiUrlDiv"></p>
-
-    <button onclick="fetchInfo()">Click Me</button>
-
-    <table>
-      <tr>
-        <th>Player</th>
-        <th>Date</th>
-        <th>Category</th>
-        <th>Time</th>
-        <th>Reason</th>
-        <th>Video</th>
-        <th>Time Calc</th>
-      </tr>
-      <tr>
-        <td id="playerCell"></td>
-        <td id="dateCell"></td>
-        <td id="categoryCell"></td>
-        <td id="timeCell"></td>
-        <td id="reasonCell"></td>
-        <td id="videoCell"></td>
-        <td id="grunCell"></td>
-      </tr>
-    </table>
   </body>
+
+  <div id="dvTable"></div>
+
+  <div id="dvTable2"></div>
 </html>

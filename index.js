@@ -637,6 +637,7 @@ if (difficultychoice == "any")
         }
         // console.log(i);
         // console.log(totalTime2)
+		if (difficultychoice != "any") {
         makeTable(
           "dvTable",
           "SA",
@@ -650,7 +651,6 @@ if (difficultychoice == "any")
           s2Time,
           i
         );
-        if (difficultychoice != "any") {
         makeTable(
           "dvTable2",
           "SA/SO",
@@ -665,6 +665,21 @@ if (difficultychoice == "any")
           i
         );
       }
+	  else if (difficultychoice === "any") {
+	          makeTable(
+          "dvTable",
+          "Any%",
+          levelarray,
+          playerarray,
+          timearray,
+          videoarray,
+          totalTime,
+          s3Time,
+          s1Time,
+          s2Time,
+          i
+        );
+	  }
       });
     });
     //console.log(i);
