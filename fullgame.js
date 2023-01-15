@@ -31,24 +31,21 @@ function myFunction() {
 // https://www.aspsnippets.com/Articles/Create-dynamic-Table-in-HTML-at-runtime-using-JavaScript.aspx
 
 async function GenerateTable() {
-
   myFunction();
 
-  let headingvar = document.getElementById('header').innerHTML;
-console.log(headingvar);
+  let headingvar = document.getElementById("header").innerHTML;
+  console.log(headingvar);
 
-if (headingvar === "Hitman 3 Master IL Top Times"){
-  console.log("master header")
-  difficultychoice = "master";
-}
-else if (headingvar === "Hitman 3 Pro IL Top Times"){
-  console.log("pro header")
-  difficultychoice = "pro";
-}
-else if (headingvar === "Hitman 3 Any% IL Top Times"){
-  console.log("any% header")
-  difficultychoice = "any";
-}
+  if (headingvar === "Hitman 3 Master Full Game Top Times") {
+    console.log("master header");
+    difficultychoice = "master";
+  } else if (headingvar === "Hitman 3 Pro Full Game Top Times") {
+    console.log("pro header");
+    difficultychoice = "pro";
+  } else if (headingvar === "Hitman 3 Any% Full Game Top Times") {
+    console.log("any% header");
+    difficultychoice = "any";
+  }
 
   //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
   //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
@@ -56,104 +53,100 @@ else if (headingvar === "Hitman 3 Any% IL Top Times"){
   let apipostfix =
     "&var-789d3g9n=814nxkjl&embed=players,category.variables,level&top=1";
   let levelapiarray = [
-    "ndx5nvvk", "rkl3no8k", "zd3oqzrd", "9kv6n132", "ndxey65k"
+    "ndx5nvvk",
+    "rkl3no8k",
+    "zd3oqzrd",
+    "9kv6n132",
+    "ndxey65k",
   ];
-  let categoryapiarray = ["?var-j84eq0wn=gq7jpknq"];
-  let difficultyapiarray = [
-    "&var-5lypzk9l=4qyp9g6q"
+  let categoryapiarray = [
+    "?var-j84eq0wn=gq7jpknq",
+    "?var-j84eq0wn=21g85yxl",
+    "?var-j84eq0wn=jqzp9k4l",
   ];
+  let difficultyapiarray = ["&var-5lypzk9l=mlnw9jol", "&var-5lypzk9l=4qyp9g6q"];
   //let finalurlsa = apiprefix + levelapiarray[i + categoryapiarray[0]]
 
   let apiUrl = [];
   let apiUrl2 = [];
 
+  if (difficultychoice == "master") {
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl.push(
+        apiprefix +
+          "category/" +
+          levelapiarray[i] +
+          categoryapiarray[0] +
+          difficultyapiarray[0] +
+          apipostfix
+      );
+    }
 
-if (difficultychoice == "master")
-{
+    console.log(apiUrl);
 
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl.push(
-      apiprefix +
-        "category/" +
-        levelapiarray[i] +
-        categoryapiarray[0] +
-        difficultyapiarray[0] +
-        apipostfix
-    );
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl2.push(
+        apiprefix +
+          "category/" +
+          levelapiarray[i] +
+          categoryapiarray[1] +
+          difficultyapiarray[0] +
+          apipostfix
+      );
+    }
   }
 
-  console.log(apiUrl);
-  
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl2.push(
-      apiprefix +
-        "category/" +
-        levelapiarray[i] +
-        categoryapiarray[0] +
-        difficultyapiarray[0] +
-        apipostfix
-    );
+  if (difficultychoice == "pro") {
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl.push(
+        apiprefix +
+          "category/" +
+          levelapiarray[i] +
+          categoryapiarray[0] +
+          difficultyapiarray[1] +
+          apipostfix
+      );
+    }
+
+    //console.log(apiUrl);
+
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl2.push(
+        apiprefix +
+          "category/" +
+          levelapiarray[i] +
+          categoryapiarray[1] +
+          difficultyapiarray[1] +
+          apipostfix
+      );
+    }
   }
 
-}
+  if (difficultychoice == "any") {
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl.push(
+        apiprefix +
+          "category/" +
+          levelapiarray[i] +
+          categoryapiarray[2] +
+          difficultyapiarray[1] +
+          apipostfix
+      );
+    }
 
-if (difficultychoice == "pro")
-{
+    //console.log(apiUrl);
 
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[2] +
-        difficultyapiarray[0] +
-        apipostfix
-    );
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl2.push(
+        apiprefix +
+          "category/" +
+          levelapiarray[i] +
+          categoryapiarray[2] +
+          difficultyapiarray[1] +
+          apipostfix
+      );
+    }
   }
-
-  //console.log(apiUrl);
-  
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl2.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[2] +
-        difficultyapiarray[2] +
-        apipostfix
-    );
-  }
-
-}
-
-if (difficultychoice == "any")
-{
-
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[2] +
-        difficultyapiarray[0] +
-        apipostfix
-    );
-  }
-
-  //console.log(apiUrl);
-  
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl2.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[2] +
-        difficultyapiarray[2] +
-        apipostfix
-    );
-  }
-
-}
 
   // console.log(apiUrl2);
 
@@ -416,7 +409,6 @@ if (difficultychoice == "any")
           s2Timever,
           i
         ) {
-
           kk += 1;
           //console.log(j)
           //console.log(kk);
@@ -425,12 +417,7 @@ if (difficultychoice == "any")
           //console.log(timearray[0])
           //console.log(timearray[1])
 
-          customers.push([
-            ratinglabel,
-"",
-"",
-""
-          ]);
+          customers.push([ratinglabel, "", "", ""]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < levelver.length; j++) {
             customers.push([
@@ -483,49 +470,48 @@ if (difficultychoice == "any")
         }
         // console.log(i);
         // console.log(totalTime2)
-		if (difficultychoice != "any") {
-        makeTable(
-          "dvTable",
-          "SA",
-          levelarray,
-          playerarray,
-          timearray,
-          videoarray,
-          totalTime,
-          s3Time,
-          s1Time,
-          s2Time,
-          i
-        );
-        makeTable(
-          "dvTable2",
-          "SA/SO",
-          levelarray2,
-          playerarray2,
-          timearray2,
-          videoarray2,
-          totalTime2,
-          s3Time2,
-          s1Time2,
-          s2Time2,
-          i
-        );
-      }
-	  else if (difficultychoice === "any") {
-	          makeTable(
-          "dvTable",
-          "Any%",
-          levelarray,
-          playerarray,
-          timearray,
-          videoarray,
-          totalTime,
-          s3Time,
-          s1Time,
-          s2Time,
-          i
-        );
-	  }
+        if (difficultychoice != "any") {
+          makeTable(
+            "dvTable",
+            "SA",
+            levelarray,
+            playerarray,
+            timearray,
+            videoarray,
+            totalTime,
+            s3Time,
+            s1Time,
+            s2Time,
+            i
+          );
+          makeTable(
+            "dvTable2",
+            "SA/SO",
+            levelarray2,
+            playerarray2,
+            timearray2,
+            videoarray2,
+            totalTime2,
+            s3Time2,
+            s1Time2,
+            s2Time2,
+            i
+          );
+        } else if (difficultychoice === "any") {
+          makeTable(
+            "dvTable",
+            "Any%",
+            levelarray,
+            playerarray,
+            timearray,
+            videoarray,
+            totalTime,
+            s3Time,
+            s1Time,
+            s2Time,
+            i
+          );
+        }
       });
     });
     //console.log(i);
