@@ -616,7 +616,7 @@ if (difficultychoice == "any")
             ratinglabel + " Trilogy SOB: " + SOB_function(totalTimever),
             ratinglabel + " S3 SOB: " + SOB_function(s3Timever),
             ratinglabel + " S1 SOB: " + SOB_function(s1Timever),
-            ratinglabel + " S2 w / DLC SOB: " + SOB_function(s2Timever) + " | SA S2 no DLC SOB: " + SOB_function(s2nodlcTimever),
+            ratinglabel + " S2 w / DLC SOB: " + SOB_function(s2Timever) + " | " + ratinglabel + " S2 no DLC SOB: " + SOB_function(s2nodlcTimever),
           ]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < levelver.length; j++) {
