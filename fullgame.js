@@ -56,7 +56,7 @@ else if (headingvar === "Hitman 3 Any% IL Top Times"){
   let apipostfix =
     "&var-789d3g9n=814nxkjl&embed=players,category.variables,level&top=1";
   let levelapiarray = [
-    "rkl3no8k"
+    "ndx5nvvk", "rkl3no8k", "zd3oqzrd", "9kv6n132", "ndxey65k"
   ];
   let categoryapiarray = ["?var-j84eq0wn=gq7jpknq"];
   let difficultyapiarray = [
@@ -82,7 +82,7 @@ if (difficultychoice == "master")
     );
   }
 
-  //console.log(apiUrl);
+  console.log(apiUrl);
   
   for (let i = 0; i < levelapiarray.length; i++) {
     apiUrl2.push(
@@ -178,7 +178,7 @@ if (difficultychoice == "any")
         //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
 
-        levelarray.push(objarray[i].data.level.data.name);
+        levelarray.push(objarray[i].data.category.data.name);
         //timearray = []
         //  console.log(objarray[i].data.runs[0].run.times.primary_t);
         //obj.data.runs[0].run.times.primary_t;
@@ -271,7 +271,7 @@ if (difficultychoice == "any")
         //  for (let i = 0; i < apiUrl.length; i++) {
         objarray2.push(obj2);
 
-        levelarray2.push(objarray2[i].data.level.data.name);
+        levelarray2.push(objarray2[i].data.category.data.name);
         //timearray = []
         //  console.log(objarray2[i].data.runs[0].run.times.primary_t);
         totalTime2 += objarray2[i].data.runs[0].run.times.primary_t;
@@ -416,48 +416,6 @@ if (difficultychoice == "any")
           s2Timever,
           i
         ) {
-          function SOB_function(totalTimeversion) {
-            if (totalTimeversion >= 3600) {
-              hours = parseInt(totalTimeversion / 3600);
-              // console.log(hours);
-              minutes = parseInt(totalTimeversion / 60) - hours * 60;
-              seconds = totalTimeversion % 60;
-              if (seconds > 9 && minutes > 0) {
-                finaltotalTimeversionhours.toString() +
-                  ":" +
-                  minutes.toString() +
-                  ":" +
-                  seconds.toString();
-              } else if (seconds <= 9 && minutes > 0) {
-                finaltotalTimeversion =
-                  hours.toString() +
-                  ":" +
-                  minutes.toString() +
-                  ":0" +
-                  seconds.toString();
-                //console.log(hours);
-              }
-            } else {
-              if (totalTimeversion < 60 && totalTimeversion >= 10) {
-                finaltotalTimeversion = "0:" + totalTimeversion;
-              } else if (totalTimeversion <= 9) {
-                finaltotalTimeversion = "0:0" + totalTimeversion;
-              } else if (totalTimeversion >= 60) {
-                minutes = parseInt(totalTimeversion / 60);
-                seconds = totalTimeversion % 60;
-                if (seconds > 9 && minutes > 0) {
-                  finaltotalTimeversion =
-                    minutes.toString() + ":" + seconds.toString();
-                } else if (seconds <= 9 && minutes > 0) {
-                  finaltotalTimeversion =
-                    minutes.toString() + ":0" + seconds.toString();
-                }
-              }
-            }
-            return finaltotalTimeversion;
-          }
-          //SOB_function(totalTimever);
-          //SOB_function(s3Timever);
 
           kk += 1;
           //console.log(j)
@@ -468,10 +426,10 @@ if (difficultychoice == "any")
           //console.log(timearray[1])
 
           customers.push([
-            ratinglabel + " Trilogy SOB: " + SOB_function(totalTimever),
-            ratinglabel + " S3 SOB: " + SOB_function(s3Timever),
-            ratinglabel + " S1 SOB: " + SOB_function(s1Timever),
-            ratinglabel + " S2 SOB: " + SOB_function(s2Timever),
+            ratinglabel,
+"",
+"",
+""
           ]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < levelver.length; j++) {
