@@ -190,6 +190,7 @@ if (difficultychoice == "any")
   let s3Time = 0;
   let s1Time = 0;
   let s2Time = 0;
+  let s2Timenodlc = 0;
 
   for (let i = 0; i < 6; i++) {
     await fetch(apiUrl[i]).then(function (response) {
@@ -232,6 +233,21 @@ if (difficultychoice == "any")
 
         s2Time += objarray[i].data.runs[0].run.times.primary_t;
         console.log(s2Time);
+      });
+    });
+  }
+
+  for (let i = 12; i < 18; i++) {
+    await fetch(apiUrl[i]).then(function (response) {
+      response.text().then(function (text) {
+        //storedText = text;
+        obj = JSON.parse(text);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray.push(obj);
+
+        s2Timenodlc += objarray[i].data.runs[0].run.times.primary_t;
+        console.log(s2Timenodlc);
       });
     });
   }
@@ -328,6 +344,7 @@ if (difficultychoice == "any")
   let s3Time2 = 0;
   let s1Time2 = 0;
   let s2Time2 = 0;
+  let s2Time2nodlc = 0;
 
   for (let i = 0; i < 6; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
@@ -344,7 +361,7 @@ if (difficultychoice == "any")
     });
   }
 
-  for (let i = 6; i < 13; i++) {
+  for (let i = 6; i < 12; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
         // storedText2 = text2;
@@ -359,7 +376,7 @@ if (difficultychoice == "any")
     });
   }
 
-  for (let i = 13; i < 20; i++) {
+  for (let i = 12; i < 20; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
         // storedText2 = text2;
@@ -370,6 +387,21 @@ if (difficultychoice == "any")
 
         s2Time2 += objarray2[i].data.runs[0].run.times.primary_t;
         console.log(s2Time2);
+      });
+    });
+  }
+
+  for (let i = 12; i < 18; i++) {
+    await fetch(apiUrl2[i]).then(function (response2) {
+      response2.text().then(function (text2) {
+        // storedText2 = text2;
+        obj2 = JSON.parse(text2);
+        //objarray = [];
+        //  for (let i = 0; i < apiUrl.length; i++) {
+        objarray2.push(obj2);
+
+        s2Time2nodlc += objarray2[i].data.runs[0].run.times.primary_t;
+        console.log(s2Time2nodlc);
       });
     });
   }
@@ -526,6 +558,7 @@ if (difficultychoice == "any")
           s3Timever,
           s1Timever,
           s2Timever,
+          s2nodlcTimever,
           i
         ) {
           function SOB_function(totalTimeversion) {
@@ -583,7 +616,7 @@ if (difficultychoice == "any")
             ratinglabel + " Trilogy SOB: " + SOB_function(totalTimever),
             ratinglabel + " S3 SOB: " + SOB_function(s3Timever),
             ratinglabel + " S1 SOB: " + SOB_function(s1Timever),
-            ratinglabel + " S2 SOB: " + SOB_function(s2Timever),
+            ratinglabel + " S2 w/ DLC SOB: " + SOB_function(s2Timever) + " / no DLC: " + SOB_function(s2nodlcTimever),
           ]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < levelver.length; j++) {
@@ -649,6 +682,7 @@ if (difficultychoice == "any")
           s3Time,
           s1Time,
           s2Time,
+          s2Timenodlc,
           i
         );
         makeTable(
@@ -662,6 +696,7 @@ if (difficultychoice == "any")
           s3Time2,
           s1Time2,
           s2Time2,
+          s2Time2nodlc,
           i
         );
       }
@@ -677,6 +712,7 @@ if (difficultychoice == "any")
           s3Time,
           s1Time,
           s2Time,
+          s2Timenodlc,
           i
         );
 	  }
