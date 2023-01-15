@@ -31,24 +31,21 @@ function myFunction() {
 // https://www.aspsnippets.com/Articles/Create-dynamic-Table-in-HTML-at-runtime-using-JavaScript.aspx
 
 async function GenerateTable() {
-
   myFunction();
 
-  let headingvar = document.getElementById('header').innerHTML;
-console.log(headingvar);
+  let headingvar = document.getElementById("header").innerHTML;
+  console.log(headingvar);
 
-if (headingvar === "Hitman 3 Master IL Top Times"){
-  console.log("master header")
-  difficultychoice = "master";
-}
-else if (headingvar === "Hitman 3 Pro IL Top Times"){
-  console.log("pro header")
-  difficultychoice = "pro";
-}
-else if (headingvar === "Hitman 3 Any% IL Top Times"){
-  console.log("any% header")
-  difficultychoice = "any";
-}
+  if (headingvar === "Hitman 3 Master IL Top Times") {
+    console.log("master header");
+    difficultychoice = "master";
+  } else if (headingvar === "Hitman 3 Pro IL Top Times") {
+    console.log("pro header");
+    difficultychoice = "pro";
+  } else if (headingvar === "Hitman 3 Any% IL Top Times") {
+    console.log("any% header");
+    difficultychoice = "any";
+  }
 
   //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
   //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
@@ -89,93 +86,83 @@ else if (headingvar === "Hitman 3 Any% IL Top Times"){
   let apiUrl = [];
   let apiUrl2 = [];
 
+  if (difficultychoice == "master") {
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl.push(
+        apiprefix +
+          "level/" +
+          levelapiarray[i] +
+          categoryapiarray[0] +
+          difficultyapiarray[1] +
+          apipostfix
+      );
+    }
 
-if (difficultychoice == "master")
-{
+    //console.log(apiUrl);
 
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[0] +
-        difficultyapiarray[1] +
-        apipostfix
-    );
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl2.push(
+        apiprefix +
+          "level/" +
+          levelapiarray[i] +
+          categoryapiarray[1] +
+          difficultyapiarray[3] +
+          apipostfix
+      );
+    }
   }
 
-  //console.log(apiUrl);
-  
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl2.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[1] +
-        difficultyapiarray[3] +
-        apipostfix
-    );
+  if (difficultychoice == "pro") {
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl.push(
+        apiprefix +
+          "level/" +
+          levelapiarray[i] +
+          categoryapiarray[0] +
+          difficultyapiarray[0] +
+          apipostfix
+      );
+    }
+
+    //console.log(apiUrl);
+
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl2.push(
+        apiprefix +
+          "level/" +
+          levelapiarray[i] +
+          categoryapiarray[1] +
+          difficultyapiarray[2] +
+          apipostfix
+      );
+    }
   }
 
-}
+  if (difficultychoice == "any") {
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl.push(
+        apiprefix +
+          "level/" +
+          levelapiarray[i] +
+          categoryapiarray[2] +
+          difficultyapiarray[0] +
+          apipostfix
+      );
+    }
 
-if (difficultychoice == "pro")
-{
+    //console.log(apiUrl);
 
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[0] +
-        difficultyapiarray[0] +
-        apipostfix
-    );
+    for (let i = 0; i < levelapiarray.length; i++) {
+      apiUrl2.push(
+        apiprefix +
+          "level/" +
+          levelapiarray[i] +
+          categoryapiarray[2] +
+          difficultyapiarray[0] +
+          apipostfix
+      );
+    }
   }
-
-  //console.log(apiUrl);
-  
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl2.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[1] +
-        difficultyapiarray[2] +
-        apipostfix
-    );
-  }
-
-}
-
-if (difficultychoice == "any")
-{
-
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[2] +
-        difficultyapiarray[0] +
-        apipostfix
-    );
-  }
-
-  //console.log(apiUrl);
-  
-  for (let i = 0; i < levelapiarray.length; i++) {
-    apiUrl2.push(
-      apiprefix +
-        "level/" +
-        levelapiarray[i] +
-        categoryapiarray[2] +
-        difficultyapiarray[0] +
-        apipostfix
-    );
-  }
-
-}
 
   // console.log(apiUrl2);
 
@@ -616,7 +603,13 @@ if (difficultychoice == "any")
             ratinglabel + " Trilogy SOB: " + SOB_function(totalTimever),
             ratinglabel + " S3 SOB: " + SOB_function(s3Timever),
             ratinglabel + " S1 SOB: " + SOB_function(s1Timever),
-            ratinglabel + " S2 w / DLC SOB: " + SOB_function(s2Timever) + " | " + ratinglabel + " S2 no DLC SOB: " + SOB_function(s2nodlcTimever),
+            ratinglabel +
+              " S2 w/ DLC SOB: " +
+              SOB_function(s2Timever) +
+              "<br><br>" +
+              ratinglabel +
+              " S2 no DLC SOB: " +
+              SOB_function(s2nodlcTimever),
           ]);
           customers.push(["Level", "Player", "Time", "Video"]);
           for (let j = 0; j < levelver.length; j++) {
@@ -670,52 +663,51 @@ if (difficultychoice == "any")
         }
         // console.log(i);
         // console.log(totalTime2)
-		if (difficultychoice != "any") {
-        makeTable(
-          "dvTable",
-          "SA",
-          levelarray,
-          playerarray,
-          timearray,
-          videoarray,
-          totalTime,
-          s3Time,
-          s1Time,
-          s2Time,
-          s2Timenodlc,
-          i
-        );
-        makeTable(
-          "dvTable2",
-          "SA/SO",
-          levelarray2,
-          playerarray2,
-          timearray2,
-          videoarray2,
-          totalTime2,
-          s3Time2,
-          s1Time2,
-          s2Time2,
-          s2Time2nodlc,
-          i
-        );
-      }
-	  else if (difficultychoice === "any") {
-	          makeTable(
-          "dvTable",
-          "Any%",
-          levelarray,
-          playerarray,
-          timearray,
-          videoarray,
-          totalTime,
-          s3Time,
-          s1Time,
-          s2Time,
-          s2Timenodlc,
-          i
-        );
-	  }
+        if (difficultychoice != "any") {
+          makeTable(
+            "dvTable",
+            "SA",
+            levelarray,
+            playerarray,
+            timearray,
+            videoarray,
+            totalTime,
+            s3Time,
+            s1Time,
+            s2Time,
+            s2Timenodlc,
+            i
+          );
+          makeTable(
+            "dvTable2",
+            "SA/SO",
+            levelarray2,
+            playerarray2,
+            timearray2,
+            videoarray2,
+            totalTime2,
+            s3Time2,
+            s1Time2,
+            s2Time2,
+            s2Time2nodlc,
+            i
+          );
+        } else if (difficultychoice === "any") {
+          makeTable(
+            "dvTable",
+            "Any%",
+            levelarray,
+            playerarray,
+            timearray,
+            videoarray,
+            totalTime,
+            s3Time,
+            s1Time,
+            s2Time,
+            s2Timenodlc,
+            i
+          );
+        }
       });
     });
     //console.log(i);
