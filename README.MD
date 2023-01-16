@@ -1,17 +1,11 @@
-## Hitruns-Parser
+## Hitruns-Top-Times
 
-**Site URL**: https://hitruns-parser.vercel.app/
+**Site URL**: https://hitruns-top-times.vercel.app/
 
-Copy and paste a run link from Hitman 3 speedrun.com (e.g. https://www.speedrun.com/hitman_3/run/zx8rokem) into the input box on upper left of webpage.
-
-Click on "Click Me" to parse.
-
-Some variables must be filled in manually at the moment due to API complications:
-- Difficulty, rating (SA vs SASO): Non CE Full Game
-- Category Extension Complications (Default, Fiberwire, etc): CE Individual Level
-- Difficulty, rating, CE complications: CE Full Game
-
-### Site Setup
-- `yarn start` to start up. 
-
+- Returns top times for each main individual level and full game category of https://www.speedrun.com/hitman_3
+  - Might take awhile to load on the first attempt, as there are a lot of GET requests. After this, the responses seem to be cached for awhile and load speed is improved.
+- Adds up the top level times of each full game category (e.g. Season 3) to calculate the theoretical sums of bests.
+- Credit for dynamic HTML table generation: https://www.aspsnippets.com/Articles/Create-dynamic-Table-in-HTML-at-runtime-using-JavaScript.aspx
+- Speedrun.com API for more info: https://github.com/speedruncomorg/api
+- Need to remember to clean up console.log statements, rename variables to be more clear, remove unused code
 
