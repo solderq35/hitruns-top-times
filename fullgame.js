@@ -1,8 +1,8 @@
 let storedText;
 
-//https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
-if (!String.linkify) {
-  String.prototype.linkify = function () {
+//https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-liks
+if (!String.linkifyGrun) {
+  String.prototype.linkifyGrun = function () {
     // http://, https://, ftp://
     let urlPattern =
       /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
@@ -13,7 +13,25 @@ if (!String.linkify) {
     // Email addresses
     let emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
 
-    return this.replace(urlPattern, '<a href="$&">$&</a>')
+    return this.replace(urlPattern, '<a href="$&" target="_blank">Grun</a>')
+      .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
+      .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
+  };
+}
+
+if (!String.linkifyVideo) {
+  String.prototype.linkifyVideo = function () {
+    // http://, https://, ftp://
+    let urlPattern =
+      /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+
+    // www. sans http:// or https://
+    let pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+
+    // Email addresses
+    let emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
+
+    return this.replace(urlPattern, '<a href="$&" target="_blank">Video</a>')
       .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
       .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
   };
@@ -157,6 +175,7 @@ async function GenerateTable() {
   let playerarray = [];
   let videoarray = [];
   let timearray = [];
+  let grunarray = [];
   let totalTime = 0;
   let s3Time = 0;
   let s1Time = 0;
@@ -233,8 +252,15 @@ async function GenerateTable() {
         }
 
         videoarray.push(
-          objarray[i].data.runs[0].run.videos.links[0].uri.linkify()
+          objarray[i].data.runs[0].run.videos.links[0].uri.linkifyVideo()
         );
+
+        let commentInitial = objarray[i].data.runs[0].run.comment;
+        let linkextract = commentInitial.match(/\bhttps?:\/\/\S+/gi);
+        let apostropheReplace = linkextract[0].toString().replace(/'/g, "%27");
+        let rightParenthesisReplace = apostropheReplace.replace(/\)/g, "%27");
+        grunarray.push(rightParenthesisReplace.linkifyGrun());
+        //console.log(grunarray);
 
         // console.log(objarray);
 
@@ -250,6 +276,7 @@ async function GenerateTable() {
   let playerarray2 = [];
   let videoarray2 = [];
   let timearray2 = [];
+  let grunarray2 = [];
   let totalTime2 = 0;
   let s3Time2 = 0;
   let s1Time2 = 0;
@@ -326,8 +353,18 @@ async function GenerateTable() {
         }
 
         videoarray2.push(
-          objarray2[i].data.runs[0].run.videos.links[0].uri.linkify()
+          objarray2[i].data.runs[0].run.videos.links[0].uri.linkifyVideo()
         );
+
+        let commentInitial2 = objarray2[i].data.runs[0].run.comment;
+        let linkextract2 = commentInitial2.match(/\bhttps?:\/\/\S+/gi);
+        let apostropheReplace2 = linkextract2[0]
+          .toString()
+          .replace(/'/g, "%27");
+        let rightParenthesisReplace2 = apostropheReplace2.replace(/\)/g, "%27");
+        grunarray2.push(rightParenthesisReplace2.linkifyGrun());
+
+        console.log(grunarray2);
 
         //console.log(totalTime2);
 
@@ -385,9 +422,9 @@ async function GenerateTable() {
         //console.log(initialTime);
         //console.log(obj.data.players.data[0].rel);
 
-        //videoName.innerHTML = obj.data.videos.links[0].uri.linkify();
+        //videoName.innerHTML = obj.data.videos.links[0].uri.linkifyGrun();
 
-        // apiUrlName.innerHTML = apiUrl.linkify();
+        // apiUrlName.innerHTML = apiUrl.linkifyGrun();
         // console.log(objarray[i].data.runs[0].run.times.primary_t);
         // console.log(obj)
 
@@ -403,6 +440,7 @@ async function GenerateTable() {
           playerver,
           timever,
           videover,
+          grunver,
           totalTimever,
           s3Timever,
           s1Timever,
@@ -417,14 +455,21 @@ async function GenerateTable() {
           //console.log(timearray[0])
           //console.log(timearray[1])
 
-          customers.push([ratinglabel, "", "", ""]);
-          customers.push(["Level", "Player", "Time", "Video"]);
+          customers.push([ratinglabel, "", "", "", ""]);
+          customers.push([
+            "Fullgame Category",
+            "Player",
+            "Time",
+            "Video",
+            "Grun",
+          ]);
           for (let j = 0; j < levelver.length; j++) {
             customers.push([
               levelver[j],
               playerver[j],
               timever[j],
               videover[j],
+              grunver[j],
             ]);
           }
 
@@ -438,6 +483,7 @@ async function GenerateTable() {
 
           //Get the count of columns.
           var columnCount = customers[0].length;
+          // columnCount++;
 
           //Add the header row.
           var row = table.insertRow(-1);
@@ -478,6 +524,7 @@ async function GenerateTable() {
             playerarray,
             timearray,
             videoarray,
+            grunarray,
             totalTime,
             s3Time,
             s1Time,
@@ -491,6 +538,7 @@ async function GenerateTable() {
             playerarray2,
             timearray2,
             videoarray2,
+            grunarray2,
             totalTime2,
             s3Time2,
             s1Time2,
@@ -505,6 +553,7 @@ async function GenerateTable() {
             playerarray,
             timearray,
             videoarray,
+            grunarray,
             totalTime,
             s3Time,
             s1Time,
