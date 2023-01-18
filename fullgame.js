@@ -258,7 +258,7 @@ async function GenerateTable() {
         let commentInitial = objarray[i].data.runs[0].run.comment;
         let linkextract = commentInitial.match(/\bhttps?:\/\/\S+/gi);
         let apostropheReplace = linkextract[0].toString().replace(/'/g, "%27");
-        let rightParenthesisReplace = apostropheReplace.replace(/\)/g, "%27");
+        let rightParenthesisReplace = apostropheReplace.replace(/\)/g, "");
         grunarray.push(rightParenthesisReplace.linkifyGrun());
         //console.log(grunarray);
 
@@ -361,7 +361,7 @@ async function GenerateTable() {
         let apostropheReplace2 = linkextract2[0]
           .toString()
           .replace(/'/g, "%27");
-        let rightParenthesisReplace2 = apostropheReplace2.replace(/\)/g, "%27");
+        let rightParenthesisReplace2 = apostropheReplace2.replace(/\)/g, "");
         grunarray2.push(rightParenthesisReplace2.linkifyGrun());
 
         console.log(grunarray2);
