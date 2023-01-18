@@ -1,8 +1,8 @@
 let storedText;
 
 //https://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links
-if (!String.linkify) {
-  String.prototype.linkify = function () {
+if (!String.linkifyVideo) {
+  String.prototype.linkifyVideo = function () {
     // http://, https://, ftp://
     let urlPattern =
       /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
@@ -13,7 +13,7 @@ if (!String.linkify) {
     // Email addresses
     let emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
 
-    return this.replace(urlPattern, '<a href="$&">$&</a>')
+    return this.replace(urlPattern, '<a href="$&" target="_blank">Video</a>')
       .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
       .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
   };
@@ -310,7 +310,7 @@ async function GenerateTable() {
         }
 
         videoarray.push(
-          objarray[i].data.runs[0].run.videos.links[0].uri.linkify()
+          objarray[i].data.runs[0].run.videos.links[0].uri.linkifyVideo()
         );
 
         // console.log(objarray);
@@ -464,7 +464,7 @@ async function GenerateTable() {
         }
 
         videoarray2.push(
-          objarray2[i].data.runs[0].run.videos.links[0].uri.linkify()
+          objarray2[i].data.runs[0].run.videos.links[0].uri.linkifyVideo()
         );
 
         //console.log(totalTime2);
@@ -523,9 +523,9 @@ async function GenerateTable() {
         //console.log(initialTime);
         //console.log(obj.data.players.data[0].rel);
 
-        //videoName.innerHTML = obj.data.videos.links[0].uri.linkify();
+        //videoName.innerHTML = obj.data.videos.links[0].uri.linkifyVideo();
 
-        // apiUrlName.innerHTML = apiUrl.linkify();
+        // apiUrlName.innerHTML = apiUrl.linkifyVideo();
         // console.log(objarray[i].data.runs[0].run.times.primary_t);
         // console.log(obj)
 
