@@ -13,7 +13,10 @@ if (!String.linkifyGrun) {
     // Email addresses
     let emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
 
-    return this.replace(urlPattern, '<a href="$&" target="_blank">Grun</a>')
+    return this.replace(
+      urlPattern,
+      '<a href="$&" target="_blank">Time Calc</a>'
+    )
       .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
       .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
   };
@@ -461,7 +464,7 @@ async function GenerateTable() {
             "Player",
             "Time",
             "Video",
-            "Grun",
+            "Time Calc",
           ]);
           for (let j = 0; j < levelver.length; j++) {
             customers.push([
