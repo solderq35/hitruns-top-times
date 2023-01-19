@@ -15,3 +15,6 @@
 - Speedrun.com API for more info: https://github.com/speedruncomorg/api
 - Need to remember to clean up console.log statements, rename variables to be more clear, remove unused code
 
+### Vercel Deployment Notice
+- Use `.` for Output Directory (select Override) in Build & Development Settings, it will think you want `public` to be the Output Directory otherwise.
+
