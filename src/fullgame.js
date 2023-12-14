@@ -55,16 +55,16 @@ async function GenerateTable() {
   myFunction();
 
   let headingvar = document.getElementById("header").innerHTML;
-  console.log(headingvar);
+  // console.log(headingvar);
 
   if (headingvar === "Hitman 3 Master Full Game Top Times") {
-    console.log("master header");
+    // console.log("master header");
     difficultychoice = "master";
   } else if (headingvar === "Hitman 3 Pro Full Game Top Times") {
-    console.log("pro header");
+    // console.log("pro header");
     difficultychoice = "pro";
   } else if (headingvar === "Hitman 3 Any% Full Game Top Times") {
-    console.log("any% header");
+    // console.log("any% header");
     difficultychoice = "any";
   }
 
@@ -103,7 +103,7 @@ async function GenerateTable() {
       );
     }
 
-    console.log(apiUrl);
+    // console.log(apiUrl);
 
     for (let i = 0; i < levelapiarray.length; i++) {
       apiUrl2.push(
@@ -129,7 +129,7 @@ async function GenerateTable() {
       );
     }
 
-    //console.log(apiUrl);
+    // console.log(apiUrl);
 
     for (let i = 0; i < levelapiarray.length; i++) {
       apiUrl2.push(
@@ -155,7 +155,7 @@ async function GenerateTable() {
       );
     }
 
-    //console.log(apiUrl);
+    // console.log(apiUrl);
 
     for (let i = 0; i < levelapiarray.length; i++) {
       apiUrl2.push(
@@ -171,7 +171,7 @@ async function GenerateTable() {
 
   // console.log(apiUrl2);
 
-  //console.log(apiUrl.length);
+  // console.log(apiUrl.length);
   let obj;
   let objarray = [];
   let levelarray = [];
@@ -195,11 +195,11 @@ async function GenerateTable() {
 
         levelarray.push(objarray[i].data.category.data.name);
         //timearray = []
-        //  console.log(objarray[i].data.runs[0].run.times.primary_t);
+        //  // console.log(objarray[i].data.runs[0].run.times.primary_t);
         //obj.data.runs[0].run.times.primary_t;
 
         totalTime += objarray[i].data.runs[0].run.times.primary_t;
-        console.log(totalTime);
+        // console.log(totalTime);
 
         let initialTime = objarray[i].data.runs[0].run.times.primary_t;
         let finalTime;
@@ -223,7 +223,7 @@ async function GenerateTable() {
               minutes.toString() +
               ":0" +
               seconds.toString();
-            //console.log(hours);
+            // console.log(hours);
           }
         } else {
           if (initialTime < 60 && initialTime >= 10) {
@@ -244,7 +244,7 @@ async function GenerateTable() {
         // console.log(timearray)
         timearray.push(finalTime);
 
-        //console.log(obj.data.players.data[0].names.international)
+        // console.log(obj.data.players.data[0].names.international)
 
         if (objarray[i].data.players.data[0].rel == "user") {
           playerarray.push(
@@ -263,11 +263,11 @@ async function GenerateTable() {
         let apostropheReplace = linkextract[0].toString().replace(/'/g, "%27");
         let rightParenthesisReplace = apostropheReplace.replace(/\)/g, "");
         grunarray.push(rightParenthesisReplace.linkifyGrun());
-        //console.log(grunarray);
+        // console.log(grunarray);
 
         // console.log(objarray);
 
-        //  console.log(objarray)
+        //  // console.log(objarray)
         // console.log(objarray[0].data.runs[0].run.times.primary_t)
       });
     });
@@ -296,7 +296,7 @@ async function GenerateTable() {
 
         levelarray2.push(objarray2[i].data.category.data.name);
         //timearray = []
-        //  console.log(objarray2[i].data.runs[0].run.times.primary_t);
+        //  // console.log(objarray2[i].data.runs[0].run.times.primary_t);
         totalTime2 += objarray2[i].data.runs[0].run.times.primary_t;
         // let dog = typeof(objarray2[i].data.runs[0].run.times.primary_t);
         // console.log(dog);
@@ -326,7 +326,7 @@ async function GenerateTable() {
               minutes.toString() +
               ":0" +
               seconds.toString();
-            //console.log(hours);
+            // console.log(hours);
           }
         } else {
           if (initialTime2 < 60 && initialTime2 >= 10) {
@@ -343,7 +343,7 @@ async function GenerateTable() {
             }
           }
         }
-        //console.log(timearray2)
+        // console.log(timearray2)
 
         timearray2.push(finalTime2);
 
@@ -367,13 +367,13 @@ async function GenerateTable() {
         let rightParenthesisReplace2 = apostropheReplace2.replace(/\)/g, "");
         grunarray2.push(rightParenthesisReplace2.linkifyGrun());
 
-        console.log(grunarray2);
+        // console.log(grunarray2);
 
-        //console.log(totalTime2);
+        // console.log(totalTime2);
 
         // console.log(objarray);
 
-        //  console.log(objarray)
+        //  // console.log(objarray)
         // console.log(objarray[0].data.runs[0].run.times.primary_t)
       });
     });
@@ -381,20 +381,18 @@ async function GenerateTable() {
 
   // const sum2 = totalTime2.reduce((partialsum2, a) => partialsum2 + a, 0)
 
-  console.log(totalTime);
+  // console.log(totalTime);
   // console.log(timearray2)
   //const sum2 = totalTime2.reduce((partialSum, a) => partialSum + a, 0)
-  //console.log(sum2)
-  //console.log("final sum")
+  // console.log(sum2)
+  // console.log("final sum")
 
-  //  console.log(finalSum2);
+  //  // console.log(finalSum2);
   // console.log(objarray);
   // console.log(videoarray);
   // console.log(levelarray);
-  //  console.log(timearray);
+  //  // console.log(timearray);
   // console.log(playerarray);
-  let kk = 69;
-  let ll = 0;
   for (let i = 0; i < apiUrl.length; i++) {
     fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
@@ -403,17 +401,17 @@ async function GenerateTable() {
         //  objarray = [];
         //  for (let i = 0; i < apiUrl.length; i++) {
         //  objarray.push(obj);
-        //  console.log(objarray);
+        //  // console.log(objarray);
         //  }
         /*
         timearray = [];
         for (let i = 0; i < 2; i++) {
         timearray.push(obj.data.runs[0].run.times.primary_t);
-        console.log(timearray);
+        // console.log(timearray);
       }
       */
-        //  console.log(obj);
-        //console.log(obj.data.runs[0].run.times.primary_t);
+        //  // console.log(obj);
+        // console.log(obj.data.runs[0].run.times.primary_t);
         //playerName.innerHTML = obj.data.players.data[0].names.international;
 
         let finaltime;
@@ -422,8 +420,8 @@ async function GenerateTable() {
         let minutes;
         let seconds;
         let hours;
-        //console.log(initialTime);
-        //console.log(obj.data.players.data[0].rel);
+        // console.log(initialTime);
+        // console.log(obj.data.players.data[0].rel);
 
         //videoName.innerHTML = obj.data.videos.links[0].uri.linkifyGrun();
 
@@ -431,9 +429,9 @@ async function GenerateTable() {
         // console.log(objarray[i].data.runs[0].run.times.primary_t);
         // console.log(obj)
 
-        //console.log(objarray)
+        // console.log(objarray)
         // console.log(objarray[0].data.runs[0].run.times.primary_t)
-        //console.log(i)
+        // console.log(i)
 
         // console.log(j)
         function makeTable(
@@ -450,13 +448,11 @@ async function GenerateTable() {
           s2Timever,
           i
         ) {
-          kk += 1;
-          //console.log(j)
-          //console.log(kk);
+          // console.log(j)
           //Build an array containing Customer records.
           var customers = new Array();
-          //console.log(timearray[0])
-          //console.log(timearray[1])
+          // console.log(timearray[0])
+          // console.log(timearray[1])
 
           customers.push([ratinglabel, "", "", "", ""]);
           customers.push([
@@ -566,8 +562,7 @@ async function GenerateTable() {
         }
       });
     });
-    //console.log(i);
-    ll++;
+    // console.log(i);
   }
 }
 

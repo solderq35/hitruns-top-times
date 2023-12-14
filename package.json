@@ -1,5 +1,5 @@
 {
-  "name": "Hitruns-Parser",
+  "name": "hitruns-parser",
   "version": "1.0.0",
   "description": "Simple parser for Hitman speedrun.com run links",
   "scripts": {
