@@ -258,8 +258,13 @@ async function GenerateTable() {
 
         let initialTime = objarray[i].data.runs[0].run.times.primary_t;
         let finalTime;
+        let initialTimeSeconds = Math.floor(initialTime);
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
 
-        if (initialTime >= 3600) {
+        // Over 1 hour case (pretty sure this won't need ms?)
+        if (initialTimeSeconds >= 3600) {
           hours = parseInt(initialTime / 3600);
           // console.log(hours);
           minutes = parseInt(initialTime / 60) - hours * 60;
@@ -281,18 +286,47 @@ async function GenerateTable() {
             // console.log(hours);
           }
         } else {
-          if (initialTime < 60 && initialTime >= 10) {
+          // console.log(initialTime)
+          if (initialTimeSeconds < 60 && initialTimeSeconds >= 10) {
             finalTime = "0:" + initialTime;
-          } else if (initialTime <= 9) {
+          } else if (initialTimeSeconds <= 9) {
             finalTime = "0:0" + initialTime;
-          } else if (initialTime >= 60) {
-            minutes = parseInt(initialTime / 60);
-            seconds = initialTime % 60;
-            if (seconds > 9 && minutes > 0) {
-              finalTime = minutes.toString() + ":" + seconds.toString();
-            } else if (seconds <= 9 && minutes > 0) {
-              finalTime = minutes.toString() + ":0" + seconds.toString();
+          } else if (initialTimeSeconds >= 60) {
+            minutes = Math.floor(initialTime / 60);
+            seconds = Math.floor(initialTime % 60);
+            // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
+            // float division rounding errors
+            let milliseconds = Math.floor((initialTime * 1000) % 1000);
+
+            // put the minutes / seconds / milliseconds together formatted
+            let formatted_seconds;
+            let formatted_milliseconds;
+
+            // add one leading zero to seconds digit if there are less than 10 seconds
+            if (seconds < 10) {
+              formatted_seconds = ":0" + Math.floor(seconds);
+            } else {
+              formatted_seconds = ":" + Math.floor(seconds);
             }
+
+            // if there are no ms, then don't show anything
+            if (milliseconds === 0) {
+              formatted_milliseconds = "";
+            }
+
+            // add two leading zeros to milliseconds digit if there are less than 10 milliseconds
+            else if (milliseconds > 0 && milliseconds < 10) {
+              formatted_milliseconds = ".00" + (milliseconds % 1000);
+            }
+
+            // add one leading zero to milliseconds digit if there are 10 to 99 milliseconds
+            else if (milliseconds >= 10 && milliseconds < 100) {
+              formatted_milliseconds = ".0" + (milliseconds % 1000);
+            } else {
+              formatted_milliseconds = "." + (milliseconds % 1000);
+            }
+
+            finalTime = minutes + formatted_seconds + formatted_milliseconds;
           }
         }
 
@@ -416,7 +450,12 @@ async function GenerateTable() {
 
         let initialTime2 = objarray2[i].data.runs[0].run.times.primary_t;
         let finalTime2;
+        let initialTimeSeconds2 = Math.floor(initialTime2);
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
 
+        // Over 1 hour case (pretty sure this won't need ms?)
         if (initialTime2 >= 3600) {
           hours = parseInt(initialTime2 / 3600);
           // console.log(hours);
@@ -439,18 +478,47 @@ async function GenerateTable() {
             // console.log(hours);
           }
         } else {
-          if (initialTime2 < 60 && initialTime2 >= 10) {
+          // console.log(initialTime2)
+          if (initialTimeSeconds2 < 60 && initialTimeSeconds2 >= 10) {
             finalTime2 = "0:" + initialTime2;
-          } else if (initialTime2 <= 9) {
+          } else if (initialTimeSeconds2 <= 9) {
             finalTime2 = "0:0" + initialTime2;
-          } else if (initialTime2 >= 60) {
-            minutes = parseInt(initialTime2 / 60);
-            seconds = initialTime2 % 60;
-            if (seconds > 9 && minutes > 0) {
-              finalTime2 = minutes.toString() + ":" + seconds.toString();
-            } else if (seconds <= 9 && minutes > 0) {
-              finalTime2 = minutes.toString() + ":0" + seconds.toString();
+          } else if (initialTimeSeconds2 >= 60) {
+            minutes = Math.floor(initialTime2 / 60);
+            seconds = Math.floor(initialTime2 % 60);
+            // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
+            // float division rounding errors
+            let milliseconds = Math.floor((initialTime2 * 1000) % 1000);
+
+            // put the minutes / seconds / milliseconds together formatted
+            let formatted_seconds;
+            let formatted_milliseconds;
+
+            // add one leading zero to seconds digit if there are less than 10 seconds
+            if (seconds < 10) {
+              formatted_seconds = ":0" + Math.floor(seconds);
+            } else {
+              formatted_seconds = ":" + Math.floor(seconds);
             }
+
+            // if there are no ms, then don't show anything
+            if (milliseconds === 0) {
+              formatted_milliseconds = "";
+            }
+
+            // add two leading zeros to milliseconds digit if there are less than 10 milliseconds
+            else if (milliseconds > 0 && milliseconds < 10) {
+              formatted_milliseconds = ".00" + (milliseconds % 1000);
+            }
+
+            // add one leading zero to milliseconds digit if there are 10 to 99 milliseconds
+            else if (milliseconds >= 10 && milliseconds < 100) {
+              formatted_milliseconds = ".0" + (milliseconds % 1000);
+            } else {
+              formatted_milliseconds = "." + (milliseconds % 1000);
+            }
+
+            finalTime2 = minutes + formatted_seconds + formatted_milliseconds;
           }
         }
         // console.log(timearray2)
