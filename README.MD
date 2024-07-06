@@ -2,6 +2,11 @@
 
 **Site URL**: https://hitruns-top-times.vercel.app/
 
+## Site Setup
+- Install dependencies: `yarn`
+- Formatting: `yarn prettier`
+- Open static HTML files in browser for local development
+
 ### Site Origin / Purpose
 - This is a slimmed down version of Hitruns Records Discord Bot (https://github.com/solderq35/hitruns-records-bot). 
 - The Hitruns Top Times site only gets the top time for each category (rather than all runs like the Hiruns Records Discord Bot), and also splits up the requests by difficulty subcategory, so there is not as much lag when updating records; it is easier to keep this up to date than the Hitman Records Discord Bot.
