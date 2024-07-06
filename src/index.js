@@ -258,13 +258,12 @@ async function GenerateTable() {
 
         let initialTime = objarray[i].data.runs[0].run.times.primary_t;
         let finalTime;
-        let initialTimeSeconds = Math.floor(initialTime);
         let hours = 0;
         let minutes = 0;
         let seconds = 0;
 
         // Over 1 hour case (pretty sure this won't need ms?)
-        if (initialTimeSeconds >= 3600) {
+        if (initialTime >= 3600) {
           hours = parseInt(initialTime / 3600);
           // console.log(hours);
           minutes = parseInt(initialTime / 60) - hours * 60;
@@ -444,7 +443,6 @@ async function GenerateTable() {
 
         let initialTime2 = objarray2[i].data.runs[0].run.times.primary_t;
         let finalTime2;
-        let initialTimeSeconds2 = Math.floor(initialTime2);
         let hours = 0;
         let minutes = 0;
         let seconds = 0;
@@ -570,9 +568,6 @@ async function GenerateTable() {
         // console.log(obj.data.runs[0].run.times.primary_t);
         //playerName.innerHTML = obj.data.players.data[0].names.international;
 
-        let finaltime;
-        let initialTime = obj.data.runs[0].run.times.primary_t;
-        let finalTime;
         let minutes;
         let seconds;
         let hours;
