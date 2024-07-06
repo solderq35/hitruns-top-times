@@ -287,47 +287,41 @@ async function GenerateTable() {
           }
         } else {
           // console.log(initialTime)
-          if (initialTimeSeconds < 60 && initialTimeSeconds >= 10) {
-            finalTime = "0:" + initialTime;
-          } else if (initialTimeSeconds <= 9) {
-            finalTime = "0:0" + initialTime;
-          } else if (initialTimeSeconds >= 60) {
-            minutes = Math.floor(initialTime / 60);
-            seconds = Math.floor(initialTime % 60);
-            // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
-            // float division rounding errors
-            let milliseconds = Math.floor((initialTime * 1000) % 1000);
+          minutes = Math.floor(initialTime / 60);
+          seconds = Math.floor(initialTime % 60);
+          // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
+          // float division rounding errors
+          let milliseconds = Math.floor((initialTime * 1000) % 1000);
 
-            // put the minutes / seconds / milliseconds together formatted
-            let formatted_seconds;
-            let formatted_milliseconds;
+          // put the minutes / seconds / milliseconds together formatted
+          let formatted_seconds;
+          let formatted_milliseconds;
 
-            // add one leading zero to seconds digit if there are less than 10 seconds
-            if (seconds < 10) {
-              formatted_seconds = ":0" + Math.floor(seconds);
-            } else {
-              formatted_seconds = ":" + Math.floor(seconds);
-            }
-
-            // if there are no ms, then don't show anything
-            if (milliseconds === 0) {
-              formatted_milliseconds = "";
-            }
-
-            // add two leading zeros to milliseconds digit if there are less than 10 milliseconds
-            else if (milliseconds > 0 && milliseconds < 10) {
-              formatted_milliseconds = ".00" + (milliseconds % 1000);
-            }
-
-            // add one leading zero to milliseconds digit if there are 10 to 99 milliseconds
-            else if (milliseconds >= 10 && milliseconds < 100) {
-              formatted_milliseconds = ".0" + (milliseconds % 1000);
-            } else {
-              formatted_milliseconds = "." + (milliseconds % 1000);
-            }
-
-            finalTime = minutes + formatted_seconds + formatted_milliseconds;
+          // add one leading zero to seconds digit if there are less than 10 seconds
+          if (seconds < 10) {
+            formatted_seconds = ":0" + Math.floor(seconds);
+          } else {
+            formatted_seconds = ":" + Math.floor(seconds);
           }
+
+          // if there are no ms, then don't show anything
+          if (milliseconds === 0) {
+            formatted_milliseconds = "";
+          }
+
+          // add two leading zeros to milliseconds digit if there are less than 10 milliseconds
+          else if (milliseconds > 0 && milliseconds < 10) {
+            formatted_milliseconds = ".00" + (milliseconds % 1000);
+          }
+
+          // add one leading zero to milliseconds digit if there are 10 to 99 milliseconds
+          else if (milliseconds >= 10 && milliseconds < 100) {
+            formatted_milliseconds = ".0" + (milliseconds % 1000);
+          } else {
+            formatted_milliseconds = "." + (milliseconds % 1000);
+          }
+
+          finalTime = minutes + formatted_seconds + formatted_milliseconds;
         }
 
         // console.log(timearray)
@@ -479,47 +473,41 @@ async function GenerateTable() {
           }
         } else {
           // console.log(initialTime2)
-          if (initialTimeSeconds2 < 60 && initialTimeSeconds2 >= 10) {
-            finalTime2 = "0:" + initialTime2;
-          } else if (initialTimeSeconds2 <= 9) {
-            finalTime2 = "0:0" + initialTime2;
-          } else if (initialTimeSeconds2 >= 60) {
-            minutes = Math.floor(initialTime2 / 60);
-            seconds = Math.floor(initialTime2 % 60);
-            // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
-            // float division rounding errors
-            let milliseconds = Math.floor((initialTime2 * 1000) % 1000);
+          minutes = Math.floor(initialTime2 / 60);
+          seconds = Math.floor(initialTime2 % 60);
+          // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
+          // float division rounding errors
+          let milliseconds = Math.floor((initialTime2 * 1000) % 1000);
 
-            // put the minutes / seconds / milliseconds together formatted
-            let formatted_seconds;
-            let formatted_milliseconds;
+          // put the minutes / seconds / milliseconds together formatted
+          let formatted_seconds;
+          let formatted_milliseconds;
 
-            // add one leading zero to seconds digit if there are less than 10 seconds
-            if (seconds < 10) {
-              formatted_seconds = ":0" + Math.floor(seconds);
-            } else {
-              formatted_seconds = ":" + Math.floor(seconds);
-            }
-
-            // if there are no ms, then don't show anything
-            if (milliseconds === 0) {
-              formatted_milliseconds = "";
-            }
-
-            // add two leading zeros to milliseconds digit if there are less than 10 milliseconds
-            else if (milliseconds > 0 && milliseconds < 10) {
-              formatted_milliseconds = ".00" + (milliseconds % 1000);
-            }
-
-            // add one leading zero to milliseconds digit if there are 10 to 99 milliseconds
-            else if (milliseconds >= 10 && milliseconds < 100) {
-              formatted_milliseconds = ".0" + (milliseconds % 1000);
-            } else {
-              formatted_milliseconds = "." + (milliseconds % 1000);
-            }
-
-            finalTime2 = minutes + formatted_seconds + formatted_milliseconds;
+          // add one leading zero to seconds digit if there are less than 10 seconds
+          if (seconds < 10) {
+            formatted_seconds = ":0" + Math.floor(seconds);
+          } else {
+            formatted_seconds = ":" + Math.floor(seconds);
           }
+
+          // if there are no ms, then don't show anything
+          if (milliseconds === 0) {
+            formatted_milliseconds = "";
+          }
+
+          // add two leading zeros to milliseconds digit if there are less than 10 milliseconds
+          else if (milliseconds > 0 && milliseconds < 10) {
+            formatted_milliseconds = ".00" + (milliseconds % 1000);
+          }
+
+          // add one leading zero to milliseconds digit if there are 10 to 99 milliseconds
+          else if (milliseconds >= 10 && milliseconds < 100) {
+            formatted_milliseconds = ".0" + (milliseconds % 1000);
+          } else {
+            formatted_milliseconds = "." + (milliseconds % 1000);
+          }
+
+          finalTime2 = minutes + formatted_seconds + formatted_milliseconds;
         }
         // console.log(timearray2)
 
