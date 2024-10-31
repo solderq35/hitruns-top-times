@@ -34,21 +34,17 @@ async function GenerateTable() {
   myFunction();
 
   let headingvar = document.getElementById("header").innerHTML;
-  // console.log(headingvar);
 
   if (headingvar === "Hitman 3 Master IL Top Times") {
-    // console.log("master header");
     difficultychoice = "master";
   } else if (headingvar === "Hitman 3 Pro IL Top Times") {
-    // console.log("pro header");
     difficultychoice = "pro";
   } else if (headingvar === "Hitman 3 Any% IL Top Times") {
-    // console.log("any% header");
     difficultychoice = "any";
   }
 
-  //https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
-  //let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
+  // https://www.speedrun.com/api/v1/leaderboards/j1ne5891/level/y9mg6vx9/7kj890zd?var-p854xo3l=21g85z6l&var-ylpe1pv8=klrpdvwq&embed=platforms%2Cplayers&timing=realtime_noloads&top=1
+  // let apiUrl = "https://www.speedrun.com/api/v1/runs/znqq2e8z?embed=players,category.variables,level";
   let apiprefix = "https://www.speedrun.com/api/v1/leaderboards/j1ne5891/";
   let apipostfix =
     "&var-ylpe1pv8=klrpdvwq&embed=players,category.variables,level&top=1";
@@ -81,7 +77,6 @@ async function GenerateTable() {
     "?var-r8r1dv7n=21dz5xpl",
     "?var-r8r1dv7n=5q86pwy1",
   ];
-  //let finalurlsa = apiprefix + levelapiarray[i + categoryapiarray[0]]
 
   let apiUrl = [];
   let apiUrl2 = [];
@@ -97,8 +92,6 @@ async function GenerateTable() {
           apipostfix
       );
     }
-
-    // console.log(apiUrl);
 
     for (let i = 0; i < levelapiarray.length; i++) {
       apiUrl2.push(
@@ -124,8 +117,6 @@ async function GenerateTable() {
       );
     }
 
-    // console.log(apiUrl);
-
     for (let i = 0; i < levelapiarray.length; i++) {
       apiUrl2.push(
         apiprefix +
@@ -150,8 +141,6 @@ async function GenerateTable() {
       );
     }
 
-    // console.log(apiUrl);
-
     for (let i = 0; i < levelapiarray.length; i++) {
       apiUrl2.push(
         apiprefix +
@@ -164,9 +153,6 @@ async function GenerateTable() {
     }
   }
 
-  // console.log(apiUrl2);
-
-  // console.log(apiUrl.length);
   let obj;
   let objarray = [];
   let levelarray = [];
@@ -182,14 +168,9 @@ async function GenerateTable() {
   for (let i = 0; i < 6; i++) {
     await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
-        //storedText = text;
         obj = JSON.parse(text);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
-
         s3Time += Math.floor(objarray[i].data.runs[0].run.times.primary_t);
-        // console.log(s3Time);
       });
     });
   }
@@ -197,14 +178,9 @@ async function GenerateTable() {
   for (let i = 6; i < 12; i++) {
     await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
-        //storedText = text;
         obj = JSON.parse(text);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
-
         s1Time += Math.floor(objarray[i].data.runs[0].run.times.primary_t);
-        // console.log(s1Time);
       });
     });
   }
@@ -212,14 +188,9 @@ async function GenerateTable() {
   for (let i = 12; i < 20; i++) {
     await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
-        //storedText = text;
         obj = JSON.parse(text);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
-
         s2Time += Math.floor(objarray[i].data.runs[0].run.times.primary_t);
-        // console.log(s2Time);
       });
     });
   }
@@ -227,14 +198,9 @@ async function GenerateTable() {
   for (let i = 12; i < 18; i++) {
     await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
-        //storedText = text;
         obj = JSON.parse(text);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
-
         s2Timenodlc += Math.floor(objarray[i].data.runs[0].run.times.primary_t);
-        // console.log(s2Timenodlc);
       });
     });
   }
@@ -242,19 +208,10 @@ async function GenerateTable() {
   for (let i = 0; i < apiUrl.length; i++) {
     await fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
-        //storedText = text;
         obj = JSON.parse(text);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray.push(obj);
-
         levelarray.push(objarray[i].data.level.data.name);
-        //timearray = []
-        // console.log(objarray[i].data.runs[0].run.times.primary_t);
-        //obj.data.runs[0].run.times.primary_t;
-
         totalTime += Math.floor(objarray[i].data.runs[0].run.times.primary_t);
-        // console.log(totalTime);
 
         let initialTime = objarray[i].data.runs[0].run.times.primary_t;
         let finalTime;
@@ -265,7 +222,6 @@ async function GenerateTable() {
         // Over 1 hour case (pretty sure this won't need ms?)
         if (initialTime >= 3600) {
           hours = parseInt(initialTime / 3600);
-          // console.log(hours);
           minutes = parseInt(initialTime / 60) - hours * 60;
           seconds = initialTime % 60;
           if (seconds > 9 && minutes > 0) {
@@ -282,12 +238,11 @@ async function GenerateTable() {
               minutes.toString() +
               ":0" +
               seconds.toString();
-            // console.log(hours);
           }
         } else {
-          // console.log(initialTime)
           minutes = Math.floor(initialTime / 60);
           seconds = Math.floor(initialTime % 60);
+
           // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
           // float division rounding errors
           let milliseconds = Math.floor((initialTime * 1000) % 1000);
@@ -323,10 +278,7 @@ async function GenerateTable() {
           finalTime = minutes + formatted_seconds + formatted_milliseconds;
         }
 
-        // console.log(timearray)
         timearray.push(finalTime);
-
-        // console.log(obj.data.players.data[0].names.international)
 
         if (objarray[i].data.players.data[0].rel == "user") {
           playerarray.push(
@@ -339,11 +291,6 @@ async function GenerateTable() {
         videoarray.push(
           objarray[i].data.runs[0].run.videos.links[0].uri.linkifyVideo()
         );
-
-        // console.log(objarray);
-
-        // console.log(objarray)
-        // console.log(objarray[0].data.runs[0].run.times.primary_t)
       });
     });
   }
@@ -363,14 +310,9 @@ async function GenerateTable() {
   for (let i = 0; i < 6; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
-        // storedText2 = text2;
         obj2 = JSON.parse(text2);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray2.push(obj2);
-
         s3Time2 += Math.floor(objarray2[i].data.runs[0].run.times.primary_t);
-        // console.log(s3Time2);
       });
     });
   }
@@ -378,14 +320,9 @@ async function GenerateTable() {
   for (let i = 6; i < 12; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
-        // storedText2 = text2;
         obj2 = JSON.parse(text2);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray2.push(obj2);
-
         s1Time2 += Math.floor(objarray2[i].data.runs[0].run.times.primary_t);
-        // console.log(s1Time2);
       });
     });
   }
@@ -393,14 +330,9 @@ async function GenerateTable() {
   for (let i = 12; i < 20; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
-        // storedText2 = text2;
         obj2 = JSON.parse(text2);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray2.push(obj2);
-
         s2Time2 += Math.floor(objarray2[i].data.runs[0].run.times.primary_t);
-        // console.log(s2Time2);
       });
     });
   }
@@ -408,16 +340,11 @@ async function GenerateTable() {
   for (let i = 12; i < 18; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
-        // storedText2 = text2;
         obj2 = JSON.parse(text2);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray2.push(obj2);
-
         s2Time2nodlc += Math.floor(
           objarray2[i].data.runs[0].run.times.primary_t
         );
-        // console.log(s2Time2nodlc);
       });
     });
   }
@@ -425,21 +352,11 @@ async function GenerateTable() {
   for (let i = 0; i < apiUrl.length; i++) {
     await fetch(apiUrl2[i]).then(function (response2) {
       response2.text().then(function (text2) {
-        // storedText2 = text2;
         obj2 = JSON.parse(text2);
-        //objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
         objarray2.push(obj2);
 
         levelarray2.push(objarray2[i].data.level.data.name);
-        //timearray = []
-        // console.log(objarray2[i].data.runs[0].run.times.primary_t);
         totalTime2 += Math.floor(objarray2[i].data.runs[0].run.times.primary_t);
-        // let dog = typeof(objarray2[i].data.runs[0].run.times.primary_t);
-        // console.log(dog);
-        // console.log(totalTime2);
-
-        // console.log(objarray2[i].data.runs[0].run.times.primary_t);
 
         let initialTime2 = objarray2[i].data.runs[0].run.times.primary_t;
         let finalTime2;
@@ -450,7 +367,6 @@ async function GenerateTable() {
         // Over 1 hour case (pretty sure this won't need ms?)
         if (initialTime2 >= 3600) {
           hours = parseInt(initialTime2 / 3600);
-          // console.log(hours);
           minutes = parseInt(initialTime2 / 60) - hours * 60;
           seconds = initialTime2 % 60;
           if (seconds > 9 && minutes > 0) {
@@ -467,12 +383,11 @@ async function GenerateTable() {
               minutes.toString() +
               ":0" +
               seconds.toString();
-            // console.log(hours);
           }
         } else {
-          // console.log(initialTime2)
           minutes = Math.floor(initialTime2 / 60);
           seconds = Math.floor(initialTime2 % 60);
+
           // milliseconds we multiply by 1000 and then take remainder after dividing by 1000, to eliminate
           // float division rounding errors
           let milliseconds = Math.floor((initialTime2 * 1000) % 1000);
@@ -507,7 +422,6 @@ async function GenerateTable() {
 
           finalTime2 = minutes + formatted_seconds + formatted_milliseconds;
         }
-        // console.log(timearray2)
 
         timearray2.push(finalTime2);
 
@@ -522,69 +436,18 @@ async function GenerateTable() {
         videoarray2.push(
           objarray2[i].data.runs[0].run.videos.links[0].uri.linkifyVideo()
         );
-
-        // console.log(totalTime2);
-
-        // console.log(objarray);
-
-        // console.log(objarray)
-        // console.log(objarray[0].data.runs[0].run.times.primary_t)
       });
     });
   }
 
-  // const sum2 = totalTime2.reduce((partialsum2, a) => partialsum2 + a, 0)
-
-  // console.log(totalTime);
-  // console.log(timearray2)
-  //const sum2 = totalTime2.reduce((partialSum, a) => partialSum + a, 0)
-  // console.log(sum2)
-  // console.log("final sum")
-
-  // console.log(finalSum2);
-  // console.log(objarray);
-  // console.log(videoarray);
-  // console.log(levelarray);
-  // console.log(timearray);
-  // console.log(playerarray);
   for (let i = 0; i < apiUrl.length; i++) {
     fetch(apiUrl[i]).then(function (response) {
       response.text().then(function (text) {
         storedText = text;
-        //obj = JSON.parse(text);
-        //  objarray = [];
-        //  for (let i = 0; i < apiUrl.length; i++) {
-        //  objarray.push(obj);
-        // console.log(objarray);
-        //  }
-        /*
-        timearray = [];
-        for (let i = 0; i < 2; i++) {
-        timearray.push(obj.data.runs[0].run.times.primary_t);
-        // console.log(timearray);
-      }
-      */
-        // console.log(obj);
-        // console.log(obj.data.runs[0].run.times.primary_t);
-        //playerName.innerHTML = obj.data.players.data[0].names.international;
-
         let minutes;
         let seconds;
         let hours;
-        // console.log(initialTime);
-        // console.log(obj.data.players.data[0].rel);
 
-        //videoName.innerHTML = obj.data.videos.links[0].uri.linkifyVideo();
-
-        // apiUrlName.innerHTML = apiUrl.linkifyVideo();
-        // console.log(objarray[i].data.runs[0].run.times.primary_t);
-        // console.log(obj)
-
-        // console.log(objarray)
-        // console.log(objarray[0].data.runs[0].run.times.primary_t)
-        // console.log(i)
-
-        // console.log(j)
         function makeTable(
           urlid,
           ratinglabel,
@@ -602,7 +465,6 @@ async function GenerateTable() {
           function SOB_function(totalTimeversion) {
             if (totalTimeversion >= 3600) {
               hours = parseInt(totalTimeversion / 3600);
-              // console.log(hours);
               minutes = parseInt(totalTimeversion / 60) - hours * 60;
               seconds = totalTimeversion % 60;
               if (seconds > 9 && minutes > 0) {
@@ -618,7 +480,6 @@ async function GenerateTable() {
                   minutes.toString() +
                   ":0" +
                   seconds.toString();
-                // console.log(hours);
               }
             } else {
               if (totalTimeversion < 60 && totalTimeversion >= 10) {
@@ -639,13 +500,8 @@ async function GenerateTable() {
             }
             return finaltotalTimeversion;
           }
-          //SOB_function(totalTimever);
-          //SOB_function(s3Timever);
-          // console.log(j)
-          //Build an array containing Customer records.
+
           var customers = new Array();
-          // console.log(timearray[0])
-          // console.log(timearray[1])
 
           customers.push([
             ratinglabel + " Trilogy SOB: " + SOB_function(totalTimever),
@@ -668,10 +524,6 @@ async function GenerateTable() {
               videover[j],
             ]);
           }
-
-          // customers.push([2, "Mudassar Khan", timever[i], "youtube"]);
-          //  customers.push([3, "Suzanne Mathews", "France", "youtube"]);
-          //  customers.push([4, "Robert Schidner", "Russia", "youtube"]);
 
           //Create a HTML Table element.
           var table = document.createElement("TABLE");
@@ -707,10 +559,7 @@ async function GenerateTable() {
           var dvTable = document.getElementById(urlid);
           dvTable.innerHTML = "";
           dvTable.appendChild(table);
-          // fetchInfo();
         }
-        // console.log(i);
-        // console.log(totalTime2)
         if (difficultychoice != "any") {
           makeTable(
             "dvTable",
@@ -758,9 +607,7 @@ async function GenerateTable() {
         }
       });
     });
-    // console.log(i);
   }
 }
 
 window.onload = GenerateTable;
-//window.onload = fetchInfo;
